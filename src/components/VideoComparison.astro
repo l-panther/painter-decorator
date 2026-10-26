@@ -708,12 +708,63 @@ const {
               });
             };
             
-            panel.addEventListener('fullscreenchange', () => {
-              console.log('Fullscreen exited', {
-                scrollY: window.scrollY,
-                savedScrollY,
-                fullscreenElement: document.fullscreenElement
-              });
+              panel.addEventListener('fullscreenchange', () => {
+                // FULLSCREEN — DESKTOP AND MOBILE
+let wasFullscreen = false;
+
+const returnToVideo = () => {
+  // Allow mobile browsers to restore their layout
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if (window.innerWidth < 992) {
+        panel.scrollIntoView({
+          behavior: 'instant',
+          block: 'center'
+        });
+      }
+    });
+  });
+};
+
+// Standard fullscreen: Chrome, Firefox, Edge,
+// and browsers supporting the Fullscreen API.
+const handleFullscreenChange = () => {
+  const isFullscreen = document.fullscreenElement === panel;
+
+  if (wasFullscreen && !isFullscreen) {
+    returnToVideo();
+  }
+
+  wasFullscreen = isFullscreen;
+};
+
+document.addEventListener(
+  'fullscreenchange',
+  handleFullscreenChange
+);
+
+// Native video fullscreen on some mobile WebKit browsers.
+foreground.addEventListener('webkitendfullscreen', () => {
+  returnToVideo();
+});
+
+fullscreenButton?.addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    } else if (panel.requestFullscreen) {
+      await panel.requestFullscreen();
+    } else if ('webkitEnterFullscreen' in foreground) {
+      (
+        foreground as HTMLVideoElement & {
+          webkitEnterFullscreen: () => void;
+        }
+      ).webkitEnterFullscreen();
+    }
+  } catch (error) {
+    console.error('Fullscreen unavailable:', error);
+  }
+});
             });
             
             fullscreenButton?.addEventListener('click', async () => {
