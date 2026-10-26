@@ -88,26 +88,15 @@ const links = [
 <script>
   import { Offcanvas } from 'bootstrap';
 
-  const initNavigation = () => {
-    const panel = document.getElementById('sideNav');
+  document.querySelectorAll<HTMLAnchorElement>(
+    '#sideNav a[href*="#"]'
+  ).forEach((link) => {
+    link.addEventListener('click', () => {
+      const sideNav = document.getElementById('sideNav');
 
-    if (!panel) return;
+      if (!sideNav) return;
 
-    const links = panel.querySelectorAll<HTMLAnchorElement>(
-      'a[href^="#"]'
-    );
-
-    links.forEach((link) => {
-      link.addEventListener('click', () => {
-        // Offcanvas is only active below Bootstrap's lg breakpoint.
-        if (window.innerWidth >= 992) return;
-
-        const instance = Offcanvas.getInstance(panel);
-
-        instance?.hide();
-      });
+      Offcanvas.getInstance(sideNav)?.hide();
     });
-  };
-
-  document.addEventListener('DOMContentLoaded', initNavigation);
+  });
 </script>
