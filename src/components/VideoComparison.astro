@@ -698,21 +698,42 @@ const {
           });
 
           fullscreenButton?.addEventListener('click', async () => {
-            try {
-              if (document.fullscreenElement) {
-                await document.exitFullscreen();
-              } else if (panel.requestFullscreen) {
-                await panel.requestFullscreen();
-              } else if ('webkitEnterFullscreen' in foreground) {
-                (
-                  foreground as HTMLVideoElement & {
-                    webkitEnterFullscreen: () => void;
-                  }
-                ).webkitEnterFullscreen();
+            // Remember the page position before entering fullscreen
+            let savedScrollY = 0;
+            
+            const restoreScroll = () => {
+              window.scrollTo({
+                top: savedScrollY,
+                behavior: 'instant'
+              });
+            };
+            
+            panel.addEventListener('fullscreenchange', () => {
+              if (!document.fullscreenElement) {
+                requestAnimationFrame(() => {
+                  restoreScroll();
+                });
               }
-            } catch (error) {
-              console.error('Fullscreen unavailable:', error);
-            }
+            });
+            
+            fullscreenButton?.addEventListener('click', async () => {
+              try {
+                if (document.fullscreenElement) {
+                  await document.exitFullscreen();
+                } else if (panel.requestFullscreen) {
+                  savedScrollY = window.scrollY;
+                  await panel.requestFullscreen();
+                } else if ('webkitEnterFullscreen' in foreground) {
+                  (
+                    foreground as HTMLVideoElement & {
+                      webkitEnterFullscreen: () => void;
+                    }
+                  ).webkitEnterFullscreen();
+                }
+              } catch (error) {
+                console.error('Fullscreen unavailable:', error);
+              }
+            });
           });
         });
 
