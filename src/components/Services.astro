@@ -1,0 +1,232 @@
+---
+import { services } from '../data/services';
+import ServiceModal from './ServiceModal.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const asset = (path: string) =>
+  `${base}${path.replace(/^\/+/, '')}`;
+---
+
+<section id="services" class="section section-tint">
+  <div class="container">
+    <div class="section-head">
+      <h2>The Art of <span class="text-blue">Transformation</span></h2>
+      <p>
+        Thoughtful preparation, skilled workmanship and attention
+        to detail — bringing new life to every space.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      {services.map((s) => (
+        <div class="col-sm-6 col-lg-3">
+
+          <article class="service service-with-image h-100 text-center">
+
+            <!-- Service image -->
+            {s.image && (
+              <div class="service-card-image">
+                <img
+                  src={asset(s.image)}
+                  alt={`${s.title} painting and decorating`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            )}
+
+            <!-- Existing card content -->
+            <div class="service-card-content">
+
+              <span class="service-icon" aria-hidden="true">
+                <i class={`bi ${s.icon}`}></i>
+              </span>
+
+              <h3>{s.title}</h3>
+
+              <p>{s.description}</p>
+
+              <button
+                type="button"
+                class="btn btn-outline-brand"
+                data-bs-toggle="modal"
+                data-bs-target={`#serviceModal-${s.id}`}
+                aria-label={`Learn more about ${s.title}`}
+              >
+                READ MORE
+              </button>
+
+            </div>
+
+          </article>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- Existing service modals -->
+{services.map((service) => (
+  <ServiceModal service={service} />
+))}
+
+<style>
+  /* ========================================
+     SERVICE CARDS
+  ======================================== */
+
+  .service {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #dde8f4;
+    border-radius: 1rem;
+    background: #fff;
+  }
+
+  /* ========================================
+     SERVICE IMAGE
+  ======================================== */
+
+  .service-card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--tint);
+  }
+
+  .service-card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .service:hover .service-card-image img {
+    transform: scale(1.04);
+  }
+
+  /* ========================================
+     CARD CONTENT
+  ======================================== */
+
+  .service-card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    padding: 1.25rem 1rem 1.5rem;
+  }
+
+  /* Service icon */
+
+  .service-icon {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 1.25rem;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-size: 1.8rem;
+    box-shadow: 0 0 0 6px #d6e8f8;
+  }
+
+  /* Heading */
+
+  .service h3 {
+    margin-bottom: 0.75rem;
+    color: var(--blue-dark);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  /* Description */
+
+  .service p {
+    flex: 1;
+    margin-bottom: 1.5rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  /* Keep buttons aligned */
+
+  .service-card-content .btn {
+    margin-top: auto;
+    font-size: 0.85rem;
+  }
+
+  /* ========================================
+     TABLET
+  ======================================== */
+
+  @media (max-width: 991.98px) {
+    .service-card-content {
+      padding: 1.25rem;
+    }
+
+    .service h3 {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* ========================================
+     MOBILE
+  ======================================== */
+
+  @media (max-width: 767.98px) {
+    .service-card-content {
+      padding: 1.25rem 1rem;
+    }
+
+    .service-icon {
+      width: 3.75rem;
+      height: 3.75rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      box-shadow: 0 0 0 5px #d6e8f8;
+    }
+
+    .service h3 {
+      font-size: 1rem;
+    }
+
+    .service p {
+      margin-bottom: 1.25rem;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .service-card-content .btn {
+      font-size: 0.8rem;
+      padding: 0.65rem 1rem;
+    }
+  }
+
+  /* ========================================
+     ACCESSIBILITY
+  ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card-image img {
+      transition: none;
+    }
+
+    .service:hover .service-card-image img {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+import { site } from '../data/site';
+const links = [
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
+  { href: '#services', label: 'Services' },
+  { href: '#gallery', label: 'Gallery' },
+  { href: '#why-me', label: 'Why me' },
+  { href: '#feedbacks', label: 'Feedback' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<div class="topbar d-none d-md-block">
+  <div class="container d-flex justify-content-between py-2">
+    <span><i class="bi bi-clock me-2"></i>{site.hours}</span>
+    <span>
+      <a href={`tel:${site.phone.replace(/\s/g, '')}`}><i class="bi bi-telephone me-2"></i>{site.phone}</a>
+      <a class="ms-4" href={`mailto:${site.email}`}><i class="bi bi-envelope me-2"></i>{site.email}</a>
+    </span>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg site-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand brand" href="#home">
+      <span class="brand-mark"><i class="bi bi-house-door-fill"></i></span>
+      <span>{site.name}<br/><span class="brand-title">{site.role}</span></span>
+    </a>  
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#sideNav"
+      aria-controls="sideNav"
+      aria-expanded="false"
+      aria-label="Open menu"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Sidebar below lg, normal inline nav from lg up -->
+    <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="sideNav" aria-labelledby="sideNavLabel">
+      <div class="offcanvas-header">
+        <span class="offcanvas-title brand" id="sideNavLabel">
+          <span class="brand-mark"><i class="bi bi-house-door-fill"></i></span>{site.name}
+        </span>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sideNav" aria-label="Close menu"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1 w-100 justify-content-lg-end">
+          {links.map((l) => (
+            <li class="nav-item"><a class="nav-link" href={l.href}>{l.label}</a></li>
+          ))}
+          <li class="nav-item ms-lg-3 mt-3 mt-lg-0"><a class="btn btn-accent w-100" href="#contact">Free quote</a></li>
+        </ul>
+        <div class="side-contact d-lg-none mt-4">
+          <a href={`tel:${site.phone.replace(/\s/g, '')}`}><i class="bi bi-telephone me-2"></i>{site.phone}</a>
+          <a href={`mailto:${site.email}`}><i class="bi bi-envelope me-2"></i>{site.email}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<style>
+  /* Top bar and nav */
+  .topbar { background: var(--navy); color: #d6e0f2; font-size: 0.875rem; }
+  .topbar a { color: #d6e0f2; text-decoration: none; }
+  .topbar a:hover { color: #fff; }
+  .site-nav { background: #fff; box-shadow: 0 1px 0 #e3e9f3; }
+  .brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; color: var(--navy); text-decoration: none; }
+  .brand-mark { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 0.6rem; background: var(--blue); color: #fff; flex: none; }
+  .site-nav .nav-link { color: var(--navy); font-weight: 500; padding-inline: 0.6rem; font-size: 0.97rem; }
+  .site-nav .nav-link:hover { color: var(--blue-dark); }
+  .brand-title { font-family: 'DM Sans'; color: var(--blue-dark)}
+
+  /* Sidebar (offcanvas) below lg */
+  @media (max-width: 991.98px) {
+    #sideNav { width: min(320px, 85vw); }
+    #sideNav .nav-link { font-size: 1.1rem; padding: 0.8rem 0; border-bottom: 1px solid #e3e9f3; }
+    .side-contact { display: flex; flex-direction: column; gap: 0.6rem; }
+    .side-contact a { color: var(--ink); text-decoration: none; }
+  }
+
+</style>
+
+<script>
+  import { Offcanvas } from 'bootstrap';
+
+  const initNavigation = () => {
+    const panel = document.getElementById('sideNav');
+
+    if (!panel) return;
+
+    const links = panel.querySelectorAll<HTMLAnchorElement>(
+      'a[href^="#"]'
+    );
+
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        // Offcanvas is only active below Bootstrap's lg breakpoint.
+        if (window.innerWidth >= 992) return;
+
+        const instance = Offcanvas.getInstance(panel);
+
+        instance?.hide();
+      });
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', initNavigation);
+</script>

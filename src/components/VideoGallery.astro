@@ -1,0 +1,290 @@
+---
+import VideoComparison from './VideoComparison.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const videos = [
+  {
+    title: 'Void Property Decorating',
+    category: 'Interior painting',
+    includes:
+      'Explore the transformation from the original condition to the completed decorating work.',
+    workCarriedOut: [
+      'Wallpaper stripping and removal of fixtures',
+      'Stairlift removal and general preparation',
+      'Filling, repairing and sanding damaged surfaces',
+      'Painting walls and skirting boards',
+      'Final decorating and finishing',
+    ],
+    result:
+      'A previously worn property refreshed with repaired surfaces, neatly painted walls and skirting, and a consistent neutral finish throughout.',
+    before: `${base}videos/portfolio/project-1-before.mp4`,
+    after: `${base}videos/portfolio/project-1-after.mp4`,
+    beforePoster: `${base}images/portfolio/project-1-before-poster.webp`,
+    afterPoster: `${base}images/portfolio/project-1-after-poster.webp`,
+  },
+  {
+    title: 'Property Repairs & Decorating',
+    category: 'Painting & decorating',
+    includes:
+      'Compare the space before decorating with the finished result.',
+    workCarriedOut: [
+      'Removal of bathroom tiles and unwanted fixtures',
+      'Removal of mirrors, shelving and floor tiles',
+      'Repairing and preparing damaged surfaces',
+      'Painting walls, ceilings and skirting boards',
+      'Final finishing and detailing',
+    ],
+    result:
+      'Extensive preparation and repairs followed by a clean, consistent painted finish, ready for the remaining refurbishment work.',
+    before: `${base}videos/portfolio/project-2-before.mp4`,
+    after: `${base}videos/portfolio/project-2-after.mp4`,
+    beforePoster: `${base}images/portfolio/project-2-before-poster.webp`,
+    afterPoster: `${base}images/portfolio/project-2-after-poster.webp`,
+  },
+];
+---
+
+<section id="videos" class="section video-gallery-section">
+  <div class="container">
+
+    <div class="section-head">
+      <h2>See My Work <span class="text-blue">in Action</span></h2>
+      <p>
+        Explore my painting and decorating projects through
+        before-and-after video walkthroughs.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      {videos.map((video) => (
+        <div class="col-12 col-lg-6">
+          <article class="video-project h-100">
+
+            <div class="video-project-content">
+              <h3>{video.title}</h3>
+            </div>
+
+            <div class="video-project-comparison">
+              <VideoComparison
+                before={video.before}
+                after={video.after}
+                beforePoster={video.beforePoster}
+                afterPoster={video.afterPoster}
+                title={video.title}
+              />
+            </div>
+
+            <div class="video-details">
+
+              {video.workCarriedOut.length > 0 && (
+                <details class="work-details">
+                  <summary>
+                    <span>Work Carried Out</span>
+                    <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                  </summary>
+
+                  <ul class="work-list">
+                    {video.workCarriedOut.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+
+              {video.result && (
+                <div class="video-result">
+                  <h4>Result</h4>
+                  <p>{video.result}</p>
+                </div>
+              )}
+
+            </div>
+
+          </article>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     VIDEO GALLERY
+  ======================================== */
+
+  .video-gallery-section {
+    background: var(--tint);
+  }
+
+  .video-project {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid #dde8f4;
+    border-radius: 1rem;
+    background: #fff;
+  }
+
+  /* ========================================
+     PROJECT HEADER
+  ======================================== */
+
+  .video-project-content {
+    padding: 0.85rem 1.5rem;
+    background: var(--navy);
+  }
+
+  .video-project-content h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  /* ========================================
+     VIDEO PLAYER
+  ======================================== */
+
+  .video-project-comparison {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* ========================================
+     PROJECT DETAILS
+  ======================================== */
+
+  .video-details {
+    flex: 1;
+    padding: 1.5rem;
+  }
+
+  /* ========================================
+     WORK CARRIED OUT
+  ======================================== */
+
+  .work-details {
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid #dde8f4;
+  }
+
+  .work-details summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    color: var(--navy);
+    font-size: 0.95rem;
+    font-weight: 700;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .work-details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .work-details summary i {
+    flex-shrink: 0;
+    color: var(--blue-dark);
+    font-size: 0.85rem;
+    transition: transform 0.25s ease;
+  }
+
+  .work-details[open] summary i {
+    transform: rotate(180deg);
+  }
+
+  .work-details summary:focus-visible {
+    outline: 3px solid var(--orange);
+    outline-offset: 3px;
+  }
+
+  /* ========================================
+     WORK LIST
+  ======================================== */
+
+  .work-list {
+    margin: 0;
+    padding: 0 0 1rem;
+    list-style: none;
+  }
+
+  .work-list li {
+    position: relative;
+    margin-bottom: 0.55rem;
+    padding-left: 1.35rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .work-list li::before {
+    position: absolute;
+    left: 0;
+    color: var(--blue-dark);
+    content: "✓";
+    font-weight: 700;
+  }
+
+  /* ========================================
+     RESULT
+  ======================================== */
+
+  .video-result h4 {
+    margin-bottom: 0.75rem;
+    color: var(--navy);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .video-result p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* ========================================
+     MOBILE
+  ======================================== */
+
+  @media (max-width: 767.98px) {
+    .video-project-content {
+      padding: 1rem 1.25rem;
+    }
+
+    .video-project-content h3 {
+      font-size: 1rem;
+    }
+
+    .video-details {
+      padding: 1.25rem;
+    }
+
+    .work-details summary {
+      font-size: 0.9rem;
+    }
+
+    .work-list li,
+    .video-result p {
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+  }
+
+  /* ========================================
+     REDUCED MOTION
+  ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .work-details summary i {
+      transition: none;
+    }
+  }
+</style>

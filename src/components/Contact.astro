@@ -1,0 +1,189 @@
+---
+import { site, serviceOptions } from '../data/site';
+---
+
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Get a <span class="text-blue">free</span> quote</h2>
+      <p>Tell us about the job and we will reply within one working day.</p>
+    </div>
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <ul class="list-unstyled contact-list">
+          <li><i class="bi bi-telephone"></i><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a></li>
+          <li><i class="bi bi-envelope"></i><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><i class="bi bi-geo-alt"></i><span>{site.area}</span></li>
+          <li><i class="bi bi-clock"></i><span>{site.hours}</span></li>
+        </ul>
+      </div>
+      <div class="col-lg-7">
+        <div id="formStatus" role="status" aria-live="polite"></div>
+        <form id="contactForm" class="row g-3 needs-validation" novalidate>
+          <div class="col-md-6">
+            <label for="name" class="form-label">Your name</label>
+            <input type="text" class="form-control" id="name" name="name" minlength="2" maxlength="80" required autocomplete="name" />
+            <div class="invalid-feedback">Enter your name (at least 2 characters).</div>
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required autocomplete="email" />
+            <div class="invalid-feedback">Enter a valid email address.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="phone" class="form-label">Phone (optional)</label>
+            <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9+()\s\-]{7,20}" autocomplete="tel" />
+            <div class="invalid-feedback">Use 7–20 digits, spaces or + ( ) -.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="service" class="form-label">Type of job</label>
+            <select class="form-select" id="service" name="service" required>
+              <option value="" selected disabled>Choose one</option>
+              {serviceOptions.map((o) => <option value={o}>{o}</option>)}
+            </select>
+            <div class="invalid-feedback">Choose the type of job.</div>
+          </div>
+          <div class="col-12">
+            <label for="message" class="form-label">About the job</label>
+            <textarea class="form-control" id="message" name="message" rows="5" minlength="10" maxlength="2000" required></textarea>
+            <div class="invalid-feedback">Tell us a little about the job (at least 10 characters).</div>
+          </div>
+          <!-- honeypot: real visitors never see or fill this -->
+          <div class="visually-hidden" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-accent btn-lg" id="submitBtn">Send enquiry</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     CONTACT DETAILS
+  ======================================== */
+
+  .contact-list {
+    margin-bottom: 0;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .contact-list .bi {
+    display: grid;
+    place-items: center;
+    flex: 0 0 2.75rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--tint);
+    color: var(--blue-dark);
+    font-size: 1.1rem;
+  }
+
+  .contact-list a,
+  .contact-list li > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-list a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .contact-list a:hover {
+    color: var(--blue-dark);
+  }
+
+  /* ========================================
+     CONTACT FORM
+  ======================================== */
+
+  .form-label {
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .form-control,
+  .form-select {
+    width: 100%;
+    border: 1px solid #c7d4e6;
+    border-radius: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 0.2rem rgba(60, 147, 219, 0.25);
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* Submit button */
+
+  #submitBtn {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  /* ========================================
+     TABLET / MOBILE
+  ======================================== */
+
+  @media (max-width: 991.98px) {
+    #contact > .container > .row {
+      --bs-gutter-y: 2rem;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .contact-list li {
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-list .bi {
+      flex-basis: 2.35rem;
+      width: 2.35rem;
+      height: 2.35rem;
+      font-size: 1rem;
+    }
+
+    .form-label {
+      font-size: 0.875rem;
+    }
+
+    .form-control,
+    .form-select {
+      padding: 0.65rem 0.8rem;
+      font-size: 1rem;
+    }
+
+    #submitBtn {
+      width: 100%;
+      padding: 0.7rem 1.15rem;
+      font-size: 0.875rem;
+    }
+  }
+</style>

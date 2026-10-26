@@ -1,0 +1,146 @@
+---
+import { site } from '../data/site';
+const links = [
+  { href: '#about', label: 'About me' },
+  { href: '#services', label: 'Services' },
+  { href: '#gallery', label: 'Gallery' },
+  { href: '#why-me', label: 'Why choose me' },
+  { href: '#feedbacks', label: 'Feedback' },
+  { href: '#contact', label: 'Free quote' },
+];
+---
+
+<footer class="site-footer">
+  <div class="container py-4 py-lg-5">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <a class="brand text-white mb-3 d-inline-flex" href="#home">
+          <span class="brand-mark"><i class="bi bi-house-door-fill"></i></span>
+          <span>{site.name}</span>
+        </a>
+        <p class="mb-0">{site.tagline} covering {site.area}.</p>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <h2 class="h6 text-white">Quick links</h2>
+        <ul class="list-unstyled mb-0">
+          {links.map((l) => <li class="mb-1"><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <h2 class="h6 text-white">Contact</h2>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1"><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a></li>
+          <li class="mb-1"><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li>{site.hours}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <div class="container py-3">&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</div>
+  </div>
+</footer>
+
+<style>
+  /* ========================================
+     FOOTER
+  ======================================== */
+
+  .site-footer {
+    background: #0c1a30;
+    color: #b9c6de;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .site-footer a {
+    color: #b9c6de;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .site-footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  /* Brand */
+
+  .site-footer .brand {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .site-footer .brand:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* Headings */
+
+  .site-footer h2 {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  /* Links and contact details */
+
+  .site-footer li {
+    line-height: 1.7;
+  }
+
+  .site-footer li a {
+    overflow-wrap: anywhere;
+  }
+
+  .site-footer .row > * {
+    min-width: 0;
+  }
+
+  /* Copyright */
+
+  .footer-base {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+  }
+
+  /* ========================================
+     MOBILE
+  ======================================== */
+
+  @media (max-width: 767.98px) {
+    .site-footer {
+      font-size: 0.875rem;
+    }
+
+    .site-footer .brand {
+      font-size: 1rem;
+    }
+
+    .site-footer h2 {
+      margin-bottom: 0.65rem;
+      font-size: 0.9rem;
+    }
+
+    .site-footer li {
+      line-height: 1.6;
+    }
+
+    .footer-base {
+      font-size: 0.75rem;
+      line-height: 1.5;
+    }
+  }
+
+  /* ========================================
+     ACCESSIBILITY
+  ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer a {
+      transition: none;
+    }
+  }
+</style>

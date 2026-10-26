@@ -1,0 +1,162 @@
+---
+import { feedback } from '../data/site';
+---
+
+<section id="feedbacks" class="section reviews-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2>What <span class="text-blue"> People Say</span> About My Work</h2>
+      <p class="text-muted">
+        Feedback from people I've worked with throughout
+        my painting and decorating career.
+      </p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      {feedback.map((review) => (
+        <div class="col-md-6 col-lg-4">
+          <figure class="feedback">
+            <span class="quote-mark" aria-hidden="true">“</span>
+
+            <blockquote>{review.text}</blockquote>
+
+            <figcaption>
+              <strong>{review.name}</strong>
+              <span>{review.job}</span>
+            </figcaption>
+          </figure>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ========================================
+     FEEDBACK CARDS
+  ======================================== */
+
+  .feedback {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: 1.75rem;
+    border: 1px solid #dde8f4;
+    border-radius: 1rem;
+    background: #fff;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .feedback:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(18, 35, 63, 0.08);
+  }
+
+  /* ========================================
+     QUOTATION MARK
+  ======================================== */
+
+  .quote-mark {
+    margin-bottom: 1.25rem;
+    color: var(--blue);
+    font-family: Georgia, serif;
+    font-size: 5rem;
+    line-height: 0.8;
+  }
+
+  /* ========================================
+     REVIEW TEXT
+  ======================================== */
+
+  .feedback blockquote {
+    flex: 1;
+    margin: 0 0 1.5rem;
+    color: var(--ink);
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* ========================================
+     ATTRIBUTION
+  ======================================== */
+
+  .feedback figcaption {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .feedback figcaption::before {
+    content: "";
+    width: 36px;
+    height: 3px;
+    margin-bottom: 0.65rem;
+    border-radius: 2px;
+    background: var(--orange);
+  }
+
+  .feedback figcaption strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .feedback figcaption span {
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  /* ========================================
+     MOBILE
+  ======================================== */
+
+  @media (max-width: 767.98px) {
+    .reviews-section .text-center.mb-5 {
+      margin-bottom: 2rem !important;
+    }
+
+    .feedback {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .quote-mark {
+      margin-bottom: 0.85rem;
+      font-size: 3.5rem;
+    }
+
+    .feedback blockquote {
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .feedback figcaption {
+      font-size: 0.875rem;
+    }
+
+    .feedback figcaption span {
+      font-size: 0.8rem;
+    }
+  }
+
+  /* ========================================
+     ACCESSIBILITY
+  ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .feedback {
+      transition: none;
+    }
+
+    .feedback:hover {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,302 @@
+---
+import { projects } from '../data/site';
+import BeforeAfter from './BeforeAfter.astro';
+import ProjectModal from './ProjectModal.astro';
+
+const base = import.meta.env.BASE_URL;
+const asset = (path: string) => `${base}${path.replace(/^\/+/, '')}`;
+---
+
+<section id="gallery" class="section portfolio-section">
+  <div class="container">
+
+    <div class="section-head">
+      <h2>Recent <span class="text-blue">Work</span></h2>
+      <p>
+        Explore a selection of painting and decorating projects,
+        from surface preparation to the finished result.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      {projects.map((p, index) => (
+        <div class="col-sm-6 col-lg-4">
+          <figure class="project h-100">
+            <div class="project-image">
+              {p.type === 'single' ? (
+                <img
+                  src={asset(p.image!)}
+                  alt={p.title}
+                  class="project-single-image"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <BeforeAfter
+                  before={asset(p.before!)}
+                  after={asset(p.after!)}
+                  title={p.title}
+                  type={p.type}
+                />
+              )}
+            </div>
+
+            <figcaption class="project-content">
+              <span class="project-category">{p.place}</span>
+
+              <h3>{p.title}</h3>
+              <p class="mb-0">{p.description}</p>
+
+              {p.type === 'slider' && (
+                 <span class="project-interactive">
+                  <i class="bi bi-arrows" aria-hidden="true"></i>
+                  Drag or use arrow keys to compare
+                </span>
+              )}
+
+              <button
+                type="button"
+                class="project-view"
+                data-bs-toggle="modal"
+                data-bs-target={`#projectModal-${index}`}
+                aria-label={`View details and images for ${p.title}`}
+              >
+                <i class="bi bi-images" aria-hidden="true"></i>
+                <span aria-hidden="true">VIEW PROJECT</span>
+                <i
+                  class="bi bi-arrow-up-right project-view-arrow"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </figcaption>
+          </figure>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+{projects.map((project, index) => (
+  <ProjectModal project={project} index={index} />
+))}
+
+
+<style>
+  /* ========================================
+     PORTFOLIO SECTION
+  ======================================== */
+
+  .portfolio-section {
+    background: #f8fafc;
+  }
+
+  /* ========================================
+     PROJECT CARD
+  ======================================== */
+
+  .project {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 0;
+    background: #fff;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .project:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(18, 35, 63, 0.08);
+  }
+
+  /* ========================================
+     PROJECT IMAGE
+  ======================================== */
+
+  .project-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #e9eef4;
+  }
+
+  /* Standalone photographs */
+
+  .project-single-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .project:hover .project-single-image {
+    transform: scale(1.04);
+  }
+
+  /*
+   * BeforeAfter.astro controls its own comparison
+   * images, labels, slider and handle.
+   *
+   * No comparison styles are needed here.
+   */
+
+  /* ========================================
+     PROJECT CONTENT
+  ======================================== */
+
+  .project-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    padding: 1.25rem;
+  }
+
+  /* Category */
+
+  .project-category {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--blue-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Project title */
+
+  .project-content h3 {
+    margin-bottom: 0.65rem;
+    color: var(--navy);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  /* Description */
+
+  .project-content p {
+    margin-bottom: 1.25rem !important;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* ========================================
+     INTERACTIVE INDICATOR
+  ======================================== */
+
+  .project-interactive {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    color: var(--blue-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .project-interactive .bi {
+    font-size: 0.9rem;
+  }
+
+  /* ========================================
+     VIEW PROJECT BUTTON
+  ======================================== */
+
+  .project-view {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 0.7rem 1rem;
+    border: 1px solid rgba(60, 147, 219, 0.25);
+    border-radius: 0.5rem;
+    background: #eaf4fd;
+    color: var(--blue-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .project-view:hover {
+    transform: translateY(-2px);
+    border-color: var(--blue);
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .project-view-arrow {
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  .project-view:focus-visible {
+    outline: 3px solid var(--orange);
+    outline-offset: 3px;
+  }
+
+  /* ========================================
+     MOBILE
+  ======================================== */
+
+  @media (max-width: 767.98px) {
+    .project-content {
+      padding: 1.1rem;
+    }
+
+    .project-category {
+      font-size: 0.7rem;
+    }
+
+    .project-content h3 {
+      font-size: 1rem;
+    }
+
+    .project-content p {
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .project-interactive {
+      font-size: 0.7rem;
+    }
+
+    .project-view {
+      padding: 0.65rem 0.9rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  /* ========================================
+     ACCESSIBILITY
+  ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .project,
+    .project-single-image,
+    .project-view {
+      transition: none;
+    }
+
+    .project:hover,
+    .project:hover .project-single-image,
+    .project-view:hover {
+      transform: none;
+    }
+  }
+</style>

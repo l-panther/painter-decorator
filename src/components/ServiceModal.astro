@@ -1,0 +1,513 @@
+---
+import type { Service } from '../data/services';
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+
+const modalId = `serviceModal-${service.id}`;
+const titleId = `${modalId}-title`;
+
+const base = import.meta.env.BASE_URL;
+const asset = (path: string) =>
+  `${base}${path.replace(/^\/+/, '')}`;
+---
+
+<div
+  class="modal fade service-modal"
+  id={modalId}
+  tabindex="-1"
+  aria-labelledby={titleId}
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header service-modal-header">
+        <div class="service-modal-heading">
+          <span class="service-modal-eyebrow">
+            Our Services
+          </span>
+
+          <h2 class="modal-title" id={titleId}>
+            {service.title}
+          </h2>
+
+          <p>{service.subtitle}</p>
+        </div>
+
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label={`Close ${service.title} details`}
+        ></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body service-modal-body">
+
+        <!-- Image + Introduction -->
+        <div class="service-modal-intro-layout">
+
+          {service.image && (
+            <div class="service-modal-image">
+              <img
+                src={asset(service.image)}
+                alt={`${service.title} service`}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          )}
+
+          <div class="service-modal-intro">
+            <span class="service-modal-icon" aria-hidden="true">
+              <i class={`bi ${service.icon}`}></i>
+            </span>
+
+            <div>
+              <h3>About This Service</h3>
+              <p>{service.overview}</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- What's Included -->
+       <div class="service-modal-includes">
+          <h3>What's Included</h3>
+
+          <ul class="row g-3 list-unstyled mb-0">
+            {service.includes.map((item) => (
+              <li class="col-sm-6">
+                <div class="service-modal-list-item">
+                  <i class="bi bi-check2-circle" aria-hidden="true"></i>
+                  <span>{item}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Our Approach -->
+        <div class="service-modal-approach">
+          <span class="service-modal-label">
+            Our Approach
+          </span>
+
+          <p>{service.approach}</p>
+        </div>
+
+        <!-- Quote CTA -->
+        <div class="service-modal-cta">
+          <div>
+            <h3>Have a Project in Mind?</h3>
+            <p>
+              Tell us what you need and request a free,
+              no-obligation quote.
+            </p>
+          </div>
+
+          <a
+            href="#contact"
+            class="btn service-modal-quote"
+            data-service-quote
+          >
+            Get a Free Quote
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer service-modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ========================================
+     SERVICE MODAL
+  ======================================== */
+
+  .service-modal .modal-content {
+    overflow: hidden;
+    border: 0;
+    border-radius: 0.75rem;
+  }
+
+  /* Header */
+
+  .service-modal-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.75rem 2rem;
+    border: 0;
+    background: var(--navy);
+    color: #fff;
+  }
+
+  .service-modal-heading {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .service-modal-eyebrow,
+  .service-modal-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--blue-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .service-modal-eyebrow {
+    color: #9ecbf0;
+  }
+
+  .service-modal-header h2 {
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-size: clamp(1.35rem, 3vw, 1.8rem);
+    font-weight: 700;
+  }
+
+  .service-modal-header p {
+    margin: 0;
+    color: #d1dfef;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .service-modal-header .btn-close {
+    flex-shrink: 0;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .service-modal-header .btn-close:hover {
+    opacity: 1;
+  }
+
+  /* ========================================
+     BODY
+  ======================================== */
+
+  .service-modal-body {
+    padding: 2rem;
+    background: #fff;
+  }
+
+  .service-modal-body h3 {
+    margin-bottom: 0.75rem;
+    color: var(--navy);
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .service-modal-body p {
+    color: var(--ink);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* ========================================
+     IMAGE AND INTRODUCTION
+  ======================================== */
+
+  .service-modal-intro-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .service-modal-image {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background: var(--tint);
+  }
+
+  .service-modal-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .service-modal-intro {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .service-modal-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    background: var(--tint);
+    color: var(--blue-dark);
+    font-size: 1.5rem;
+  }
+
+  .service-modal-intro > div {
+    min-width: 0;
+  }
+
+  .service-modal-intro p {
+    margin-bottom: 0;
+  }
+
+  /* ========================================
+     WHAT'S INCLUDED
+  ======================================== */
+
+  .service-modal-includes {
+    padding: 1.5rem 0;
+    border-top: 1px solid #e1eaf3;
+  }
+
+  .service-modal-includes h3 {
+    margin-bottom: 1.25rem;
+  }
+
+  .service-modal-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    height: 100%;
+    color: var(--ink);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .service-modal-list-item .bi {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    color: var(--blue);
+  }
+
+  /* ========================================
+     OUR APPROACH
+  ======================================== */
+
+  .service-modal-approach {
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--orange);
+    border-radius: 0.35rem;
+    background: var(--tint);
+  }
+
+  .service-modal-approach p {
+    margin: 0;
+  }
+
+  /* ========================================
+     QUOTE CTA
+  ======================================== */
+
+  .service-modal-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background: var(--navy);
+    color: #fff;
+  }
+
+  .service-modal-cta h3 {
+    margin-bottom: 0.4rem;
+    color: #fff;
+    font-size: 1.05rem;
+  }
+
+  .service-modal-cta p {
+    margin: 0;
+    color: #d1dfef;
+    font-size: 0.875rem;
+  }
+
+  .service-modal-quote {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+    padding: 0.75rem 1.1rem;
+    background: var(--orange);
+    color: var(--navy);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .service-modal-quote:hover {
+    background: var(--orange-dark);
+    color: var(--navy);
+  }
+
+  /* ========================================
+     FOOTER
+  ======================================== */
+
+  .service-modal-footer {
+    padding: 1rem 2rem;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+  }
+
+  /* ========================================
+     MOBILE
+  ======================================== */
+
+  @media (max-width: 767.98px) {
+    .service-modal-header,
+    .service-modal-body {
+      padding: 1.25rem;
+    }
+
+    .service-modal-header h2 {
+      font-size: 1.3rem;
+    }
+
+    .service-modal-intro-layout {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .service-modal-image img {
+      max-height: 260px;
+    }
+
+    .service-modal-body h3 {
+      font-size: 1rem;
+    }
+
+    .service-modal-cta {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+      padding: 1.25rem;
+    }
+
+    .service-modal-quote {
+      width: 100%;
+    }
+
+    .service-modal-footer {
+      padding: 1rem 1.25rem;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .service-modal-header,
+    .service-modal-body {
+      padding: 1rem;
+    }
+
+    .service-modal-header h2 {
+      font-size: 1.2rem;
+    }
+
+    .service-modal-intro {
+      gap: 0.75rem;
+    }
+
+    .service-modal-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.25rem;
+    }
+
+    .service-modal-list-item {
+      font-size: 0.875rem;
+    }
+
+    .service-modal-approach {
+      padding: 1rem;
+    }
+
+    .service-modal-footer {
+      padding: 0.85rem 1rem;
+    }
+  }
+</style>
+
+<script>
+  import { Modal } from 'bootstrap';
+
+  function initServiceModalQuotes() {
+    document.querySelectorAll<HTMLElement>('.service-modal').forEach((modal) => {
+      if (modal.dataset.quoteInitialized === 'true') return;
+
+      modal.dataset.quoteInitialized = 'true';
+
+      const quoteLink = modal.querySelector<HTMLAnchorElement>(
+        '[data-service-quote]'
+      );
+
+      if (!quoteLink) return;
+
+      quoteLink.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const contact = document.getElementById('contact');
+        if (!contact) return;
+
+        const instance = Modal.getInstance(modal);
+
+        if (!instance) {
+          contact.scrollIntoView();
+          return;
+        }
+
+        modal.addEventListener(
+          'hidden.bs.modal',
+          () => {
+            contact.scrollIntoView({
+              behavior: window.matchMedia(
+                '(prefers-reduced-motion: reduce)'
+              ).matches ? 'instant' : 'smooth',
+              block: 'start'
+            });
+
+            history.replaceState(null, '', '#contact');
+          },
+          { once: true }
+        );
+
+        instance.hide();
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initServiceModalQuotes);
+  initServiceModalQuotes();
+</script>

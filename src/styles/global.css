@@ -1,0 +1,294 @@
+/* ========================================
+   ROOT VARIABLES
+======================================== */
+
+:root {
+  --navy: #12233f;
+  --blue: #3c93db;
+  --blue-dark: #1f6aa8;
+  --orange: #ff914d;
+  --orange-dark: #f27a2e;
+  --tint: #f1f7fd;
+  --ink: #1b2536;
+  --muted: #566277;
+
+  --bs-body-font-family: 'DM Sans', system-ui, sans-serif;
+  --bs-body-color: var(--ink);
+  --bs-link-color: var(--blue-dark);
+}
+
+
+/* ========================================
+   BASE
+======================================== */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--bs-body-font-family);
+  color: var(--ink);
+}
+
+.container {
+  width: 100%;
+  max-width: 90rem;
+  padding-inline: 1.5rem;
+}
+
+h1,
+h2,
+h3,
+.brand {
+  font-family: 'Sora', sans-serif;
+  letter-spacing: -0.01em;
+  text-transform: capitalize;
+}
+
+.text-muted {
+  color: var(--muted) !important;
+}
+
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.lead-sm {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* ========================================
+   SHARED BRAND
+======================================== */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--navy);
+  font-family: 'Sora', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 2.8rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.6rem;
+  background: var(--blue);
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.brand-title {
+  color: var(--blue-dark);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ========================================
+   SHARED ACCESSIBILITY
+======================================== */
+
+/* Visible keyboard focus */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* Keyboard skip link */
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 1100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+  color: #fff;
+}
+
+/* Reduce animation for users who request it */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.btn {
+  border-radius: 999px;
+  font-weight: 700;
+  padding-inline: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.btn-brand {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--navy);
+}
+
+.btn-brand:hover,
+.btn-brand:focus {
+  background: #2f82c9;
+  border-color: #2f82c9;
+  color: var(--navy);
+}
+
+.btn-accent {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: var(--navy);
+}
+
+.btn-accent:hover,
+.btn-accent:focus {
+  background: var(--orange-dark);
+  border-color: var(--orange-dark);
+  color: var(--navy);
+}
+
+.btn-outline-brand {
+  background: #fff;
+  color: var(--blue-dark);
+  border: 2px solid var(--blue);
+}
+
+.btn-outline-brand:hover,
+.btn-outline-brand:focus {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--navy);
+}
+
+
+/* ========================================
+   SHARED SECTIONS
+======================================== */
+
+.section {
+  padding-block: 5rem;
+}
+
+.section-tint {
+  background: var(--tint);
+}
+
+.section-head {
+  max-width: 40rem;
+  margin-bottom: 2.5rem;
+}
+
+.section h2 {
+  font-weight: 800;
+  color: var(--navy);
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.section-head p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+
+/* ========================================
+   MOBILE BRAND
+======================================== */
+
+@media (max-width: 399.98px) {
+  .brand {
+    gap: 0.45rem;
+    font-size: 0.9rem;
+  }
+
+  .brand-mark {
+    flex-basis: 2.4rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 767.98px) {
+
+  .container {
+    padding-inline: 1rem;
+  }
+
+  .row {
+    --bs-gutter-x: 1.25rem;
+  }
+
+  .section {
+    padding-block: 3rem;
+  }
+
+  .section-head {
+    margin-bottom: 1.75rem;
+  }
+
+  .section h2 {
+    font-size: clamp(1.5rem, 6vw, 1.9rem);
+  }
+
+  .section-head p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.65rem 1.15rem;
+  }
+
+  .lead-sm {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+}
+
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
