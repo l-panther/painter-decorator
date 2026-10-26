@@ -452,9 +452,54 @@ h1, h2, h3, .brand { font-family: 'Sora', sans-serif; letter-spacing: -0.01em; t
 }
 
 @media (max-width: 767.98px) {
-  .video-project-content {
-    padding: 1.25rem;
-  }
+.container {
+  padding-inline: 1rem;
+}
+
+.row {
+  --bs-gutter-x: 1.25rem;
+}
+.section {
+  padding-block: 3rem;
+}
+
+.section-head {
+  margin-bottom: 1.75rem;
+}
+
+.section h2 {
+  font-size: clamp(1.5rem, 6vw, 1.9rem);
+  line-height: 1.25;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 8vw, 2.65rem);
+  line-height: 1.15;
+}
+
+.hero .lead {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.lead-sm {
+  font-size: 1rem;
+}
+
+.service {
+  padding: 1.5rem 1.25rem;
+}
+
+.project-content {
+  padding: 1.25rem;
+}
+
+.video-details {
+  padding: 1.25rem;
+}
+
+.video-project-content {
+  padding: 1.25rem;
 }
 
 /* ---------------------------------
