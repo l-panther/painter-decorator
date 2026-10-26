@@ -86,43 +86,17 @@ const links = [
 </style>
 
 <script>
-  import { Offcanvas } from 'bootstrap';
+  document.querySelectorAll<HTMLAnchorElement>(
+    '#sideNav a[href^="#"]'
+  ).forEach((link) => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth >= 992) return;
 
-  const sideNav = document.getElementById('sideNav');
+      const closeButton = document.querySelector<HTMLButtonElement>(
+        '#sideNav [data-bs-dismiss="offcanvas"]'
+      );
 
-  if (sideNav) {
-    const links = sideNav.querySelectorAll<HTMLAnchorElement>(
-      'a[href^="#"]'
-    );
-
-    links.forEach((link) => {
-      link.addEventListener('click', (event) => {
-        // Desktop navigation works normally
-        if (window.innerWidth >= 992) return;
-
-        const target = link.getAttribute('href');
-        if (!target) return;
-
-        const offcanvas = Offcanvas.getOrCreateInstance(sideNav);
-
-        event.preventDefault();
-
-        // Close the sidebar and remove its backdrop
-        offcanvas.hide();
-
-        // Navigate after Bootstrap finishes closing
-        sideNav.addEventListener(
-          'hidden.bs.offcanvas',
-          () => {
-            document.querySelector(target)?.scrollIntoView({
-              behavior: 'smooth'
-            });
-
-            history.replaceState(null, '', target);
-          },
-          { once: true }
-        );
-      });
+      closeButton?.click();
     });
-  }
+  });
 </script>
