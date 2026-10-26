@@ -89,14 +89,38 @@ const links = [
   document.querySelectorAll<HTMLAnchorElement>(
     '#sideNav a[href^="#"]'
   ).forEach((link) => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (event) => {
       if (window.innerWidth >= 992) return;
 
-      const closeButton = document.querySelector<HTMLButtonElement>(
-        '#sideNav [data-bs-dismiss="offcanvas"]'
+      const targetId = link.getAttribute('href');
+      if (!targetId) return;
+
+      const target = document.getElementById(targetId.slice(1));
+      if (!target) return;
+
+      const sideNav = document.getElementById('sideNav');
+      if (!sideNav) return;
+
+      event.preventDefault();
+
+      // Scroll only after Bootstrap has closed the sidebar
+      sideNav.addEventListener(
+        'hidden.bs.offcanvas',
+        () => {
+          history.replaceState(null, '', targetId);
+
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        },
+        { once: true }
       );
 
-      closeButton?.click();
+      // Use Bootstrap's existing close button
+      sideNav.querySelector<HTMLButtonElement>(
+        '[data-bs-dismiss="offcanvas"]'
+      )?.click();
     });
   });
 </script>
