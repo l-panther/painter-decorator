@@ -122,43 +122,50 @@ const links = [
 </style>
 
 <script>
-  document.querySelectorAll<HTMLAnchorElement>(
-    '#sideNav a[href^="#"]'
-  ).forEach((link) => {
-    link.addEventListener('click', (event) => {
-      if (window.innerWidth >= 992) return;
+  import { Offcanvas } from 'bootstrap';
 
-      const targetId = link.getAttribute('href');
-      if (!targetId) return;
+  const sideNav = document.getElementById('sideNav');
 
-      const target = document.getElementById(targetId.slice(1));
-      if (!target) return;
+  if (sideNav) {
+    const links = sideNav.querySelectorAll<HTMLAnchorElement>(
+      'a[href^="#"]'
+    );
 
-      const sideNav = document.getElementById('sideNav');
-      if (!sideNav) return;
+    links.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (window.innerWidth >= 992) return;
 
-      event.preventDefault();
+        const targetId = link.getAttribute('href');
+        if (!targetId) return;
 
-      // Scroll only after Bootstrap has closed the sidebar
-      sideNav.addEventListener(
-        'hidden.bs.offcanvas',
-        () => {
-          history.replaceState(null, '', targetId);
+        const target = document.getElementById(targetId.slice(1));
+        if (!target) return;
 
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        },
-        { once: true }
-      );
+        event.preventDefault();
 
-      // Use Bootstrap's existing close button
-      sideNav.querySelector<HTMLButtonElement>(
-        '[data-bs-dismiss="offcanvas"]'
-      )?.click();
+        const instance = Offcanvas.getInstance(sideNav);
+
+        if (!instance) return;
+
+        sideNav.addEventListener(
+          'hidden.bs.offcanvas',
+          () => {
+            history.replaceState(null, '', targetId);
+
+            target.scrollIntoView({
+              behavior: window.matchMedia(
+                '(prefers-reduced-motion: reduce)'
+              ).matches ? 'instant' : 'smooth',
+              block: 'start'
+            });
+          },
+          { once: true }
+        );
+
+        instance.hide();
+      });
     });
-  });
+  }
 </script>
 
 <script>
