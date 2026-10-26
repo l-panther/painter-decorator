@@ -1,7 +1,7 @@
 export const site = {
-  name: 'Leroy Russell',
+  name: 'David Williams',
   tagline: 'Painting & decorating contractor',
-  phone: '07737 672 064 ',
+  phone: '01234 567890 ',
   email: 'hello@bluelinepainting.example',
   area: 'Central London and surrounding areas',
   hours: 'Mon–Fri 8am–6pm, Sat 9am–1pm',
