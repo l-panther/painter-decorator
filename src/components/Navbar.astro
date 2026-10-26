@@ -56,9 +56,27 @@ const links = [
 
 <script>
   import { Offcanvas } from 'bootstrap';
-  // Close the sidebar when a link inside it is tapped
-  const panel = document.getElementById('sideNav');
-  panel?.querySelectorAll('a[href^="#"]').forEach((a) =>
-    a.addEventListener('click', () => Offcanvas.getInstance(panel)?.hide())
-  );
+
+  const initNavigation = () => {
+    const panel = document.getElementById('sideNav');
+
+    if (!panel) return;
+
+    const links = panel.querySelectorAll<HTMLAnchorElement>(
+      'a[href^="#"]'
+    );
+
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        // Offcanvas is only active below Bootstrap's lg breakpoint.
+        if (window.innerWidth >= 992) return;
+
+        const instance = Offcanvas.getInstance(panel);
+
+        instance?.hide();
+      });
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', initNavigation);
 </script>
