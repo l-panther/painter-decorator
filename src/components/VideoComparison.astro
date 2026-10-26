@@ -711,7 +711,9 @@ const {
             panel.addEventListener('fullscreenchange', () => {
               if (!document.fullscreenElement) {
                 requestAnimationFrame(() => {
-                  restoreScroll();
+                  requestAnimationFrame(() => {
+                    restoreScroll();
+                  });
                 });
               }
             });
