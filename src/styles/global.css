@@ -834,5 +834,17 @@ h1, h2, h3, .brand { font-family: 'Sora', sans-serif; letter-spacing: -0.01em; t
 .site-footer a { color: #b9c6de; text-decoration: none; }
 .site-footer a:hover { color: #fff; text-decoration: underline; }
 .footer-base { border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.875rem; }
+  .site-footer {
+  overflow-wrap: anywhere;
+}
+
+.site-footer a {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.site-footer .row > * {
+  min-width: 0;
+}
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
