@@ -75,13 +75,49 @@ const links = [
   .site-nav .nav-link:hover { color: var(--blue-dark); }
   .brand-title { font-family: 'DM Sans'; color: var(--blue-dark)}
 
-  /* Sidebar (offcanvas) below lg */
-  @media (max-width: 991.98px) {
-    #sideNav { width: min(320px, 85vw); }
-    #sideNav .nav-link { font-size: 1.1rem; padding: 0.8rem 0; border-bottom: 1px solid #e3e9f3; }
-    .side-contact { display: flex; flex-direction: column; gap: 0.6rem; }
-    .side-contact a { color: var(--ink); text-decoration: none; }
+  /* Active navigation link */
+.site-nav .nav-link.active {
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+/* Desktop: blue underline */
+@media (min-width: 992px) {
+  .site-nav .nav-link {
+    position: relative;
   }
+
+  .site-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: 0;
+    height: 2px;
+    background: var(--blue);
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+  }
+
+  .site-nav .nav-link.active::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Mobile: highlighted background */
+@media (max-width: 991.98px) {
+  #sideNav .nav-link.active {
+    background: var(--tint);
+    color: var(--blue-dark);
+    border-left: 3px solid var(--blue);
+    padding-left: 0.75rem;
+  }
+
+  #sideNav { width: min(320px, 85vw); }
+  #sideNav .nav-link { font-size: 1.1rem; padding: 0.8rem 0; border-bottom: 1px solid #e3e9f3; }
+  .side-contact { display: flex; flex-direction: column; gap: 0.6rem; }
+  .side-contact a { color: var(--ink); text-decoration: none; }
+}
 
 </style>
 
@@ -123,4 +159,54 @@ const links = [
       )?.click();
     });
   });
+</script>
+
+<script>
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>(
+    '#sideNav .nav-link[href^="#"]'
+  );
+
+  const sections = Array.from(navLinks)
+    .map((link) => {
+      const id = link.getAttribute('href')?.slice(1);
+      return id ? document.getElementById(id) : null;
+    })
+    .filter((section): section is HTMLElement => section !== null);
+
+  function updateActiveLink() {
+    const scrollPosition = window.scrollY + 140;
+
+    let activeId = sections[0]?.id;
+
+    sections.forEach((section) => {
+      if (section.offsetTop <= scrollPosition) {
+        activeId = section.id;
+      }
+    });
+
+    // Highlight Contact when reaching the bottom
+    if (
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 5
+    ) {
+      activeId = 'contact';
+    }
+
+    navLinks.forEach((link) => {
+      const isActive = link.getAttribute('href') === `#${activeId}`;
+
+      link.classList.toggle('active', isActive);
+
+      if (isActive) {
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  window.addEventListener('resize', updateActiveLink);
+
+  updateActiveLink();
 </script>
