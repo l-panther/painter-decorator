@@ -223,8 +223,8 @@ export const feedback = [
     text: "There's always good things happening when you are on site."
   },
   {
-    name: 'Site Supervisor',
-    job: 'Professional Feedback',
-    text: "There's always good things happening when you are on site."
+    name: 'Mum',
+    job: 'Personal Feedback',
+    text: "You're the best!"
   }
 ];
