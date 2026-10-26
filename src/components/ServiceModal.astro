@@ -461,8 +461,6 @@ const asset = (path: string) =>
 </style>
 
 <script>
-  import { Modal } from 'bootstrap';
-
   function initServiceModalQuotes() {
     document.querySelectorAll<HTMLElement>('.service-modal').forEach((modal) => {
       if (modal.dataset.quoteInitialized === 'true') return;
@@ -473,20 +471,17 @@ const asset = (path: string) =>
         '[data-service-quote]'
       );
 
-      if (!quoteLink) return;
+      const closeButton = modal.querySelector<HTMLButtonElement>(
+        '[data-bs-dismiss="modal"]'
+      );
+
+      if (!quoteLink || !closeButton) return;
 
       quoteLink.addEventListener('click', (event) => {
         event.preventDefault();
 
         const contact = document.getElementById('contact');
         if (!contact) return;
-
-        const instance = Modal.getInstance(modal);
-
-        if (!instance) {
-          contact.scrollIntoView();
-          return;
-        }
 
         modal.addEventListener(
           'hidden.bs.modal',
@@ -503,7 +498,8 @@ const asset = (path: string) =>
           { once: true }
         );
 
-        instance.hide();
+        // Let the existing Bootstrap instance close the modal
+        closeButton.click();
       });
     });
   }
