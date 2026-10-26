@@ -709,13 +709,11 @@ const {
             };
             
             panel.addEventListener('fullscreenchange', () => {
-              if (!document.fullscreenElement) {
-                requestAnimationFrame(() => {
-                  requestAnimationFrame(() => {
-                    restoreScroll();
-                  });
-                });
-              }
+              console.log('Fullscreen exited', {
+                scrollY: window.scrollY,
+                savedScrollY,
+                fullscreenElement: document.fullscreenElement
+              });
             });
             
             fullscreenButton?.addEventListener('click', async () => {
