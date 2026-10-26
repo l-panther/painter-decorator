@@ -141,7 +141,7 @@ export const projects = [
     place: 'Interior decorating',
     description:
       'Repairing damaged wall surfaces around existing fixtures.',
-    type: 'static',
+    type: 'slider',
     before: 'images/portfolio/bedroom2-before.webp',
     after: 'images/portfolio/bedroom2-after.webp',
 
