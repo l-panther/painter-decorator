@@ -1,0 +1,140 @@
+---
+import type { Service } from '../data/services';
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+
+const modalId = `serviceModal-${service.id}`;
+const titleId = `${modalId}-title`;
+
+const base = import.meta.env.BASE_URL;
+const asset = (path: string) =>
+  `${base}${path.replace(/^\/+/, '')}`;
+---
+
+<div
+  class="modal fade service-modal"
+  id={modalId}
+  tabindex="-1"
+  aria-labelledby={titleId}
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header service-modal-header">
+        <div class="service-modal-heading">
+          <span class="service-modal-eyebrow">
+            Our Services
+          </span>
+
+          <h2 class="modal-title" id={titleId}>
+            {service.title}
+          </h2>
+
+          <p>{service.subtitle}</p>
+        </div>
+
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body service-modal-body">
+
+        <!-- Image + Introduction -->
+        <div class="service-modal-intro-layout">
+
+          {service.image && (
+            <div class="service-modal-image">
+              <img
+                src={asset(service.image)}
+                alt={`${service.title} service`}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          )}
+
+          <div class="service-modal-intro">
+            <span class="service-modal-icon">
+              <i class={`bi ${service.icon}`}></i>
+            </span>
+
+            <div>
+              <h3>About This Service</h3>
+              <p>{service.overview}</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- What's Included -->
+        <div class="service-modal-includes">
+          <h3>What's Included</h3>
+
+          <div class="row g-3">
+            {service.includes.map((item) => (
+              <div class="col-sm-6">
+                <div class="service-modal-list-item">
+                  <i class="bi bi-check2-circle"></i>
+                  <span>{item}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Our Approach -->
+        <div class="service-modal-approach">
+          <span class="service-modal-label">
+            Our Approach
+          </span>
+
+          <p>{service.approach}</p>
+        </div>
+
+        <!-- Quote CTA -->
+        <div class="service-modal-cta">
+          <div>
+            <h3>Have a Project in Mind?</h3>
+            <p>
+              Tell us what you need and request a free,
+              no-obligation quote.
+            </p>
+          </div>
+
+          <a
+            href="#contact"
+            class="btn service-modal-quote"
+            data-bs-dismiss="modal"
+          >
+            Get a Free Quote
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer service-modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

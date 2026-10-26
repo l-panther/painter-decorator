@@ -1,0 +1,113 @@
+
+---
+interface Props {
+  before: string;
+  after: string;
+  title: string;
+  type?: 'static' | 'slider';
+}
+
+const {
+  before,
+  after,
+  title,
+  type = 'static'
+} = Astro.props;
+---
+
+{
+  type === 'slider' ? (
+    <div class="comparison-slider" data-comparison>
+      <img
+        src={after}
+        alt={`${title} after decorating`}
+        class="comparison-img"
+        loading="lazy"
+        decoding="async"
+      />
+
+      <div class="comparison-before">
+        <img
+          src={before}
+          alt={`${title} before decorating`}
+          class="comparison-img"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <span class="comparison-label label-before">Before</span>
+      <span class="comparison-label label-after">After</span>
+
+      <div class="comparison-divider" aria-hidden="true">
+        <span class="comparison-handle">
+          <i class="bi bi-chevron-left"></i>
+          <i class="bi bi-chevron-right"></i>
+        </span>
+      </div>
+
+      <input
+        type="range"
+        class="comparison-range"
+        min="0"
+        max="100"
+        value="50"
+        aria-label={`Compare before and after: ${title}`}
+      />
+    </div>
+  ) : (
+    <div class="comparison-static">
+      <div class="static-image">
+        <img
+          src={before}
+          alt={`${title} before decorating`}
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="comparison-label">Before</span>
+      </div>
+
+      <div class="static-image">
+        <img
+          src={after}
+          alt={`${title} after decorating`}
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="comparison-label">After</span>
+      </div>
+    </div>
+  )
+}
+
+<script>
+  function initComparisons() {
+    document.querySelectorAll<HTMLElement>('[data-comparison]')
+      .forEach((comparison) => {
+        if (comparison.dataset.initialized === 'true') return;
+
+        comparison.dataset.initialized = 'true';
+
+        const range = comparison.querySelector<HTMLInputElement>(
+          '.comparison-range'
+        );
+
+        if (!range) return;
+
+        const update = () => {
+          comparison.style.setProperty(
+            '--position',
+            `${range.value}%`
+          );
+        };
+
+        range.addEventListener('input', update);
+        update();
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', initComparisons);
+  document.addEventListener('astro:page-load', initComparisons);
+
+  initComparisons();
+</script>

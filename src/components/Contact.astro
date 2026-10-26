@@ -1,0 +1,107 @@
+---
+import { site, serviceOptions } from '../data/site';
+---
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Get a <span class="text-blue">free</span> quote</h2>
+      <p>Tell us about the job and we will reply within one working day.</p>
+    </div>
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <ul class="list-unstyled contact-list">
+          <li><i class="bi bi-telephone"></i><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a></li>
+          <li><i class="bi bi-envelope"></i><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><i class="bi bi-geo-alt"></i><span>{site.area}</span></li>
+          <li><i class="bi bi-clock"></i><span>{site.hours}</span></li>
+        </ul>
+      </div>
+      <div class="col-lg-7">
+        <div id="formStatus" role="status" aria-live="polite"></div>
+        <form id="contactForm" class="row g-3 needs-validation" novalidate>
+          <div class="col-md-6">
+            <label for="name" class="form-label">Your name</label>
+            <input type="text" class="form-control" id="name" name="name" minlength="2" maxlength="80" required autocomplete="name" />
+            <div class="invalid-feedback">Enter your name (at least 2 characters).</div>
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required autocomplete="email" />
+            <div class="invalid-feedback">Enter a valid email address.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="phone" class="form-label">Phone (optional)</label>
+            <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9+()\s\-]{7,20}" autocomplete="tel" />
+            <div class="invalid-feedback">Use 7–20 digits, spaces or + ( ) -.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="service" class="form-label">Type of job</label>
+            <select class="form-select" id="service" name="service" required>
+              <option value="" selected disabled>Choose one</option>
+              {serviceOptions.map((o) => <option value={o}>{o}</option>)}
+            </select>
+            <div class="invalid-feedback">Choose the type of job.</div>
+          </div>
+          <div class="col-12">
+            <label for="message" class="form-label">About the job</label>
+            <textarea class="form-control" id="message" name="message" rows="5" minlength="10" maxlength="2000" required></textarea>
+            <div class="invalid-feedback">Tell us a little about the job (at least 10 characters).</div>
+          </div>
+          <!-- honeypot: real visitors never see or fill this -->
+          <div class="visually-hidden" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-accent btn-lg" id="submitBtn">Send enquiry</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const status = document.getElementById('formStatus') as HTMLElement;
+  const btn = document.getElementById('submitBtn') as HTMLButtonElement;
+
+  const show = (type: 'success' | 'danger', msg: string) => {
+    status.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.innerHTML = '';
+    form.classList.add('was-validated');
+    if (!form.checkValidity()) return; // client-side validation
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const out = await res.json();
+      if (res.ok && out.ok) {
+        form.reset();
+        form.classList.remove('was-validated');
+        show('success', 'Thanks, your enquiry has been sent. We will reply within one working day.');
+      } else if (out.errors) {
+        // server-side validation messages
+        const list = Object.values(out.errors).map((m) => `<li>${m}</li>`).join('');
+        show('danger', `Please fix the following:<ul class="mb-0">${list}</ul>`);
+      } else {
+        show('danger', 'Something went wrong sending your enquiry. Please try again or call us.');
+      }
+    } catch {
+      show('danger', 'We could not reach the server. Please try again or call us.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send enquiry';
+    }
+  });
+</script>

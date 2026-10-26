@@ -1,0 +1,39 @@
+---
+import { reasons } from '../data/site';
+---
+
+<section id="why-me" class="section section-dark">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <h2>Why Choose Me</h2>
+
+        <p class="text-light-muted">
+          A quality finish starts with good preparation,
+          careful workmanship and attention to detail.
+          Here's what I bring to every project.
+        </p>
+
+        <a href="#contact" class="btn btn-accent mt-2">
+          Discuss Your Project
+        </a>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="row g-4">
+          {reasons.map((r) => (
+            <div class="col-md-6">
+              <div class="reason d-flex gap-3">
+                <i class={`bi ${r.icon}`} aria-hidden="true"></i>
+                <div>
+                  <h3>{r.title}</h3>
+                  <p class="mb-0">{r.text}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

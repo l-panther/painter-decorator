@@ -1,0 +1,636 @@
+
+---
+interface Props {
+  before: string;
+  after: string;
+  beforePoster?: string;
+  afterPoster?: string;
+  title: string;
+  workCarriedOut?: string[];
+  result?: string;
+}
+
+const {
+  before,
+  after,
+  beforePoster,
+  afterPoster,
+  title,
+} = Astro.props;
+---
+
+<div class="video-comparison" data-video-comparison>
+
+  <!-- VIDEO FRAME -->
+  <div class="video-player-frame">
+
+    <!-- BEFORE VIDEO -->
+    <div
+      class="video-player-panel"
+      data-video-panel="before"
+    >
+      <video
+        class="video-background"
+        src={before}
+        poster={beforePoster}
+        muted
+        playsinline
+        preload="none"
+        tabindex="-1"
+        aria-hidden="true"
+      ></video>
+
+      <video
+        class="video-foreground"
+        playsinline
+        preload="metadata"
+        poster={beforePoster}
+        aria-label={`${title} before`}
+      >
+        <source src={before} type="video/mp4" />
+        Your browser does not support HTML video.
+      </video>
+
+      <button
+        type="button"
+        class="video-play-overlay"
+        aria-label={`Play ${title} before video`}
+      >
+        <i class="bi bi-play-fill"></i>
+      </button>
+
+      <div class="video-controls">
+        <button
+          type="button"
+          class="video-control-btn"
+          data-action="toggle"
+          aria-label="Play"
+        >
+          <i class="bi bi-play-fill"></i>
+        </button>
+
+        <span class="video-time">0:00 / 0:00</span>
+
+        <input
+          type="range"
+          class="video-progress"
+          min="0"
+          max="100"
+          value="0"
+          step="0.1"
+          aria-label="Seek before video"
+        />
+
+        <button
+          type="button"
+          class="video-control-btn"
+          data-action="mute"
+          aria-label="Mute"
+        >
+          <i class="bi bi-volume-up-fill"></i>
+        </button>
+
+        <button
+          type="button"
+          class="video-control-btn"
+          data-action="fullscreen"
+          aria-label="Fullscreen"
+        >
+          <i class="bi bi-arrows-fullscreen"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- AFTER VIDEO -->
+    <div
+      class="video-player-panel"
+      data-video-panel="after"
+      hidden
+    >
+      <video
+        class="video-background"
+        src={after}
+        poster={afterPoster}
+        muted
+        playsinline
+        preload="none"
+        tabindex="-1"
+        aria-hidden="true"
+      ></video>
+
+      <video
+        class="video-foreground"
+        playsinline
+        preload="metadata"
+        poster={afterPoster}
+        aria-label={`${title} after`}
+      >
+        <source src={after} type="video/mp4" />
+        Your browser does not support HTML video.
+      </video>
+
+      <button
+        type="button"
+        class="video-play-overlay"
+        aria-label={`Play ${title} after video`}
+      >
+        <i class="bi bi-play-fill"></i>
+      </button>
+
+      <div class="video-controls">
+        <button
+          type="button"
+          class="video-control-btn"
+          data-action="toggle"
+          aria-label="Play"
+        >
+          <i class="bi bi-play-fill"></i>
+        </button>
+
+        <span class="video-time">0:00 / 0:00</span>
+
+        <input
+          type="range"
+          class="video-progress"
+          min="0"
+          max="100"
+          value="0"
+          step="0.1"
+          aria-label="Seek after video"
+        />
+
+        <button
+          type="button"
+          class="video-control-btn"
+          data-action="mute"
+          aria-label="Mute"
+        >
+          <i class="bi bi-volume-up-fill"></i>
+        </button>
+
+        <button
+          type="button"
+          class="video-control-btn"
+          data-action="fullscreen"
+          aria-label="Fullscreen"
+        >
+          <i class="bi bi-arrows-fullscreen"></i>
+        </button>
+      </div>
+    </div>
+
+
+
+  </div>
+
+      <!-- BEFORE / AFTER BUTTONS -->
+    <div
+      class="video-switch"
+      role="group"
+      aria-label={`${title} video selection`}
+    >
+      <button
+        type="button"
+        class="video-switch-btn active"
+        data-video-select="before"
+        aria-pressed="true"
+      >
+        <i class="bi bi-arrow-counterclockwise"></i>
+        Before
+      </button>
+
+      <button
+        type="button"
+        class="video-switch-btn"
+        data-video-select="after"
+        aria-pressed="false"
+      >
+        <i class="bi bi-check-circle"></i>
+        After
+      </button>
+    </div>
+</div>
+
+<style>
+  /* VIDEO COMPARISON */
+
+  .video-comparison {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* BEFORE / AFTER SWITCH */
+  .video-switch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    border-bottom: 1px solid #d5e2ef;
+  }
+
+  .video-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .video-switch-btn.active {
+    background: var(--tint);
+    color: var(--navy);
+    border-bottom-color: var(--blue);
+  }
+
+  .video-switch-btn:hover:not(.active) {
+    background: #f8fbff;
+    color: var(--blue-dark);
+  }
+
+  .video-switch-btn:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: -3px;
+  }
+/* FIXED VIDEO FRAME */
+
+.video-player-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+  .video-player-panel {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: var(--navy);
+  }
+
+  .video-player-panel[hidden] {
+    display: none !important;
+  }
+
+  /* BLURRED BACKGROUND */
+
+  .video-background {
+    position: absolute;
+    inset: -15%;
+    width: 130%;
+    height: 130%;
+    object-fit: cover;
+    filter: blur(28px) brightness(0.6);
+    pointer-events: none;
+  }
+
+  /* MAIN VIDEO */
+
+  .video-foreground {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: transparent;
+  }
+
+  /* LARGE PLAY BUTTON */
+
+  .video-play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    padding: 0;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    background: rgba(18, 35, 63, 0.88);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .video-play-overlay i {
+    margin-left: 3px;
+    font-size: 2.2rem;
+  }
+
+  .video-play-overlay:hover {
+    background: var(--blue);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .video-play-overlay[hidden] {
+    display: none !important;
+  }
+
+  /* CUSTOM CONTROLS */
+
+  .video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.8rem;
+    background: linear-gradient(
+      transparent,
+      rgba(18, 35, 63, 0.92)
+    );
+    color: #fff;
+  }
+
+  .video-control-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0.25rem;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font-size: 1.15rem;
+    cursor: pointer;
+  }
+
+  .video-control-btn:hover {
+    color: var(--orange);
+  }
+
+  .video-progress {
+    flex: 1;
+    min-width: 0;
+    accent-color: var(--orange);
+    cursor: pointer;
+  }
+
+  .video-time {
+    font-size: 0.72rem;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* MOBILE */
+
+  @media (max-width: 767.98px) {
+    .video-switch-btn {
+      flex: 1;
+    }
+
+    .video-player-frame {
+      aspect-ratio: 4 / 3;
+    }
+
+    .video-background {
+      filter: blur(20px) brightness(0.6);
+    }
+
+    .video-play-overlay {
+      width: 58px;
+      height: 58px;
+    }
+
+    .video-play-overlay i {
+      font-size: 1.8rem;
+    }
+
+    .video-controls {
+      gap: 0.4rem;
+      padding: 0.6rem;
+    }
+
+    .video-time {
+      font-size: 0.65rem;
+    }
+  }
+</style>
+
+<script>
+  function formatTime(seconds: number): string {
+    if (!Number.isFinite(seconds)) return '0:00';
+
+    const minutes = Math.floor(seconds / 60);
+    const remaining = Math.floor(seconds % 60);
+
+    return `${minutes}:${String(remaining).padStart(2, '0')}`;
+  }
+
+  function initVideoComparisons() {
+    document
+      .querySelectorAll<HTMLElement>('[data-video-comparison]')
+      .forEach((comparison) => {
+        if (comparison.dataset.initialized === 'true') return;
+        comparison.dataset.initialized = 'true';
+
+        const panels =
+          comparison.querySelectorAll<HTMLElement>('[data-video-panel]');
+
+        const switchButtons =
+          comparison.querySelectorAll<HTMLButtonElement>('[data-video-select]');
+
+        // INITIALISE EACH VIDEO PANEL
+
+        panels.forEach((panel) => {
+          const foreground =
+            panel.querySelector<HTMLVideoElement>('.video-foreground');
+
+          const background =
+            panel.querySelector<HTMLVideoElement>('.video-background');
+
+          const playOverlay =
+            panel.querySelector<HTMLButtonElement>('.video-play-overlay');
+
+          const playButton =
+            panel.querySelector<HTMLButtonElement>('[data-action="toggle"]');
+
+          const muteButton =
+            panel.querySelector<HTMLButtonElement>('[data-action="mute"]');
+
+          const fullscreenButton =
+            panel.querySelector<HTMLButtonElement>('[data-action="fullscreen"]');
+
+          const progress =
+            panel.querySelector<HTMLInputElement>('.video-progress');
+
+          const time =
+            panel.querySelector<HTMLElement>('.video-time');
+
+          if (!foreground) return;
+
+          const updateTime = () => {
+            if (time) {
+              time.textContent =
+                `${formatTime(foreground.currentTime)} / ${formatTime(foreground.duration)}`;
+            }
+
+            if (
+              progress &&
+              Number.isFinite(foreground.duration) &&
+              foreground.duration > 0
+            ) {
+              progress.value = String(
+                (foreground.currentTime / foreground.duration) * 100
+              );
+            }
+          };
+
+          const togglePlayback = () => {
+            if (foreground.paused) {
+              // Pause any other videos on the page.
+              document
+                .querySelectorAll<HTMLVideoElement>('.video-foreground')
+                .forEach((video) => {
+                  if (video !== foreground) video.pause();
+                });
+
+              void foreground.play().catch(console.error);
+            } else {
+              foreground.pause();
+            }
+          };
+
+          playOverlay?.addEventListener('click', togglePlayback);
+          playButton?.addEventListener('click', togglePlayback);
+
+          foreground.addEventListener('loadedmetadata', updateTime);
+          foreground.addEventListener('timeupdate', updateTime);
+          foreground.addEventListener('durationchange', updateTime);
+
+          foreground.addEventListener('play', () => {
+            if (playOverlay) playOverlay.hidden = true;
+
+            if (playButton) {
+              playButton.innerHTML =
+                '<i class="bi bi-pause-fill"></i>';
+              playButton.setAttribute('aria-label', 'Pause');
+            }
+
+            if (background) {
+              try {
+                background.currentTime = foreground.currentTime;
+              } catch {
+                // Background metadata may not be ready yet.
+              }
+
+              void background.play().catch(() => {});
+            }
+          });
+
+          foreground.addEventListener('pause', () => {
+            background?.pause();
+
+            if (playButton) {
+              playButton.innerHTML =
+                '<i class="bi bi-play-fill"></i>';
+              playButton.setAttribute('aria-label', 'Play');
+            }
+
+            if (playOverlay) {
+              playOverlay.hidden = foreground.currentTime > 0;
+            }
+          });
+
+          foreground.addEventListener('ended', () => {
+            background?.pause();
+
+            if (playOverlay) playOverlay.hidden = false;
+
+            if (playButton) {
+              playButton.innerHTML =
+                '<i class="bi bi-play-fill"></i>';
+              playButton.setAttribute('aria-label', 'Replay');
+            }
+          });
+
+          foreground.addEventListener('seeking', () => {
+            if (background && background.readyState >= 1) {
+              background.currentTime = foreground.currentTime;
+            }
+          });
+
+          progress?.addEventListener('input', () => {
+            if (
+              Number.isFinite(foreground.duration) &&
+              foreground.duration > 0
+            ) {
+              foreground.currentTime =
+                (Number(progress.value) / 100) * foreground.duration;
+            }
+          });
+
+          muteButton?.addEventListener('click', () => {
+            foreground.muted = !foreground.muted;
+
+            muteButton.innerHTML = foreground.muted
+              ? '<i class="bi bi-volume-mute-fill"></i>'
+              : '<i class="bi bi-volume-up-fill"></i>';
+
+            muteButton.setAttribute(
+              'aria-label',
+              foreground.muted ? 'Unmute' : 'Mute'
+            );
+          });
+
+          fullscreenButton?.addEventListener('click', () => {
+            if (document.fullscreenElement) {
+              void document.exitFullscreen();
+            } else {
+              void panel.requestFullscreen();
+            }
+          });
+        });
+
+        // BEFORE / AFTER SWITCHING
+
+        switchButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const selected = button.dataset.videoSelect;
+
+            // Stop all videos in this project.
+            comparison
+              .querySelectorAll<HTMLVideoElement>('video')
+              .forEach((video) => video.pause());
+
+            switchButtons.forEach((btn) => {
+              const active = btn.dataset.videoSelect === selected;
+
+              btn.classList.toggle('active', active);
+              btn.setAttribute('aria-pressed', String(active));
+            });
+
+            panels.forEach((panel) => {
+              panel.hidden = panel.dataset.videoPanel !== selected;
+            });
+          });
+        });
+      });
+  }
+
+  document.addEventListener('astro:page-load', initVideoComparisons);
+  initVideoComparisons();
+</script>

@@ -1,0 +1,41 @@
+---
+import { site } from '../data/site';
+const links = [
+  { href: '#about', label: 'About me' },
+  { href: '#services', label: 'Services' },
+  { href: '#gallery', label: 'Gallery' },
+  { href: '#why-me', label: 'Why choose me' },
+  { href: '#reviews', label: 'Reviews' },
+  { href: '#contact', label: 'Free quote' },
+];
+---
+<footer class="site-footer">
+  <div class="container py-5">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <a class="brand text-white mb-3 d-inline-flex" href="#home">
+          <span class="brand-mark"><i class="bi bi-house-door-fill"></i></span>
+          <span>{site.name}</span>
+        </a>
+        <p class="mb-0">{site.tagline} covering {site.area}.</p>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h2 class="h6 text-white">Quick links</h2>
+        <ul class="list-unstyled mb-0">
+          {links.map((l) => <li class="mb-1"><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+      <div class="col-6 col-lg-4">
+        <h2 class="h6 text-white">Contact</h2>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1"><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a></li>
+          <li class="mb-1"><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li>{site.hours}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <div class="container py-3">&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</div>
+  </div>
+</footer>

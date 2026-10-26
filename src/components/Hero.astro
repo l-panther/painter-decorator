@@ -1,0 +1,30 @@
+---
+import { site } from '../data/site';
+---
+<header id="home" class="hero">
+  <div class="container">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-6 hero-text">
+        <h1>Professional painting, finished properly.</h1>
+        <img src="/images/paint-stroke.png" alt="Decorative orange paint stroke" />
+        <p class="lead">
+          Interior and exterior painting and decorating for homes
+          and businesses across {site.area}. From careful surface
+          preparation to the final coat, I focus on quality
+          workmanship, attention to detail and a clean,
+          professional finish.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="#contact" class="btn btn-accent btn-lg">Get a free quote</a>
+          <a href="#gallery" class="btn btn-outline-brand btn-lg">See my work</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <picture>
+          <source srcset="images/hero/hero.png" media="(min-width: 992px)" />
+          <img class="hero-img" src="images/hero/hero-mobile.png" alt="A painter rolling blue paint onto a wall, with a stepladder, paint tins and a brush on a dust sheet" fetchpriority="high" />
+        </picture>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Astro build output
+dist/
+.astro/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Editor files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+*~
+
+# Original reference videos
+public/videos/portfolio/ref/
+
+# Krita source files
+*.kra

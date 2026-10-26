@@ -1,0 +1,117 @@
+---
+import VideoComparison from './VideoComparison.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const videos = [
+  {
+    title: 'Void Property Decorating',
+    category: 'Interior painting',
+    includes:
+      'Explore the transformation from the original condition to the completed decorating work.',
+    workCarriedOut: [
+      "Wallpaper stripping and removal of fixtures",
+      "Stairlift removal and general preparation",
+      "Filling, repairing and sanding damaged surfaces",
+      "Painting walls and skirting boards",
+      "Final decorating and finishing"
+    ],
+
+    result: "A previously worn property refreshed with repaired surfaces, neatly painted walls and skirting, and a consistent neutral finish throughout.",
+
+    before: `${base}videos/portfolio/project-1-before.mp4`,
+    after: `${base}videos/portfolio/project-1-after.mp4`,
+
+    beforePoster: `${base}images/portfolio/project-1-before-poster.webp`,
+    afterPoster: `${base}images/portfolio/project-1-after-poster.webp`,
+  },
+  {
+    title: 'Property Repairs & Decorating',
+    category: 'Painting & decorating',
+    includes:
+      'Compare the space before decorating with the finished result.',
+    workCarriedOut: [
+      "Removal of bathroom tiles and unwanted fixtures",
+      "Removal of mirrors, shelving and floor tiles",
+      "Repairing and preparing damaged surfaces",
+      "Painting walls, ceilings and skirting boards",
+      "Final finishing and detailing"
+    ],
+
+    result: "Extensive preparation and repairs followed by a clean, consistent painted finish, ready for the remaining refurbishment work.",
+
+    before: `${base}videos/portfolio/project-2-before.mp4`,
+    after: `${base}videos/portfolio/project-2-after.mp4`,
+
+    beforePoster: `${base}images/portfolio/project-2-before-poster.webp`,
+    afterPoster: `${base}images/portfolio/project-2-after-poster.webp`,
+  },
+];
+---
+
+<section id="videos" class="section video-gallery-section">
+  <div class="container">
+
+    <div class="section-head">
+      <h2>
+        See My Work <span class="text-blue">in Action</span>
+      </h2>
+
+      <p>
+        Explore our painting and decorating projects through
+        before-and-after video walkthroughs.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      {videos.map((video) => (
+        <div class="col-12 col-lg-6">
+          <article class="video-project h-100">
+
+            <div class="video-project-content">
+
+              <h3>{video.title}</h3>
+             
+            </div>
+
+            <div class="video-project-comparison">
+             <VideoComparison
+              before={video.before}
+              after={video.after}
+              beforePoster={video.beforePoster}
+              afterPoster={video.afterPoster}
+              title={video.title}
+            />
+            </div>
+
+            <div class="video-details">
+              {video.workCarriedOut?.length > 0 && (
+                <details class="work-details">
+                  <summary>
+                    <span>Work Carried Out</span>
+                    <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                  </summary>
+
+                  <ul class="work-list">
+                    {video.workCarriedOut.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+
+              {video.result && (
+                <div class="video-result">
+                  <h3>Result</h3>
+                  <p>{video.result}</p>
+                </div>
+              )}
+            </div>
+
+          </article>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,120 @@
+
+---
+const facts = [
+  {
+    icon: 'bi-award',
+    text: 'Around 5 years of painting and decorating experience'
+  },
+  {
+    icon: 'bi-patch-check',
+    text: 'Level 2 Diploma in Painting & Decorating'
+  },
+  {
+    icon: 'bi-buildings',
+    text: 'Experience in residential, commercial and educational settings'
+  },
+  {
+    icon: 'bi-brush',
+    text: 'Careful preparation, repairs and quality finishes'
+  },
+];
+---
+
+<section id="about" class="section">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+
+      <div class="col-lg-6">
+        <h2>About <span class="text-blue">Me</span></h2>
+   
+        <p class="lead-sm">
+          I'm a painter and decorator with around five years
+          of hands-on experience, taking pride in careful
+          preparation, attention to detail and achieving
+          clean, professional finishes.
+        </p>
+
+        <p class="text-muted">
+          My experience includes residential, commercial and
+          educational environments, working on everything
+          from wall and ceiling repairs to interior and
+          exterior painting.
+        </p>
+
+        <p class="text-muted">
+          I believe a good finish starts long before the
+          final coat. That's why I focus on preparing surfaces
+          properly, working carefully and treating each
+          space with respect.
+        </p>
+
+        <p class="text-muted">
+          Beyond painting and decorating, I also have a passion
+          for digital design and web development. Both allow me
+          to combine creativity, precision and an eye for detail.
+        </p>
+
+        <a
+          href="https://l-panther.github.io/portfolio/"
+          class="creative-portfolio-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="bi bi-code-slash" aria-hidden="true"></i>
+          <span>View My Web Development Portfolio</span>
+          <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="about-card">
+          <h3 class="h5 mb-4">At a Glance</h3>
+
+          <ul class="list-unstyled mb-0">
+            {facts.map((f) => (
+              <li class="d-flex gap-3 align-items-center mb-3">
+                <i class={`bi ${f.icon}`} aria-hidden="true"></i>
+                <span>{f.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.creative-portfolio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+  color: var(--blue-dark);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.creative-portfolio-link:hover {
+  color: var(--navy);
+}
+
+.creative-portfolio-link .bi-arrow-up-right {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.creative-portfolio-link:hover .bi-arrow-up-right {
+  transform: translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creative-portfolio-link,
+  .creative-portfolio-link .bi-arrow-up-right {
+    transition: none;
+  }
+}
+</style>

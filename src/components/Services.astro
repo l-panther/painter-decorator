@@ -1,0 +1,496 @@
+---
+import { services } from '../data/services';
+import ServiceModal from './ServiceModal.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const asset = (path: string) =>
+  `${base}${path.replace(/^\/+/, '')}`;
+---
+
+<section id="services" class="section section-tint">
+  <div class="container">
+    <div class="section-head">
+      <h2>The Art of <span class="text-blue">Transformation</span></h2>
+      <p>
+        Thoughtful preparation, skilled workmanship and attention
+        to detail — bringing new life to every space.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      {services.map((s) => (
+        <div class="col-sm-6 col-lg-3">
+
+          <article class="service service-with-image h-100 text-center">
+
+            <!-- Service image -->
+            {s.image && (
+              <div class="service-card-image">
+                <img
+                  src={asset(s.image)}
+                  alt={`${s.title} painting and decorating`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            )}
+
+            <!-- Existing card content -->
+            <div class="service-card-content">
+
+              <span class="service-icon">
+                <i class={`bi ${s.icon}`}></i>
+              </span>
+
+              <h3>{s.title}</h3>
+
+              <p>{s.description}</p>
+
+              <button
+                type="button"
+                class="btn btn-outline-brand"
+                data-bs-toggle="modal"
+                data-bs-target={`#serviceModal-${s.id}`}
+                aria-label={`Learn more about ${s.title}`}
+              >
+                READ MORE
+              </button>
+
+            </div>
+
+          </article>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- Existing service modals -->
+{services.map((service) => (
+  <ServiceModal service={service} />
+))}
+
+{services.map((service) => (
+  <ServiceModal service={service} />
+))}
+
+<style is:global>
+
+/* -------------------------
+   SERVICE CARDS WITH IMAGES
+-------------------------- */
+
+.service-with-image {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Image */
+
+.service-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--tint);
+}
+
+.service-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.service-with-image:hover .service-card-image img {
+  transform: scale(1.04);
+}
+
+/* Card content */
+
+.service-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem 1rem 1.5rem;
+}
+
+/* Existing icon */
+
+.service-card-content .service-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* Description */
+
+.service-card-content p {
+  flex: 1;
+}
+
+/* Keep buttons aligned across cards */
+
+.service-card-content .btn {
+  margin-top: auto;
+}
+
+/* -------------------------
+   SERVICE MODALS
+-------------------------- */
+
+.service-modal .modal-content {
+  border: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(18, 35, 63, 0.18);
+}
+
+/* Header */
+
+.service-modal-header {
+  align-items: flex-start;
+  padding: 1.75rem 2rem;
+  border: 0;
+  background: var(--navy);
+  color: #fff;
+}
+
+.service-modal-heading {
+  padding-right: 1rem;
+}
+
+.service-modal-eyebrow {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #a9d6fa;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.service-modal-header .modal-title {
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+}
+
+.service-modal-heading p {
+  margin: 0;
+  color: #c3d1e2;
+  font-size: 0.9rem;
+}
+
+.service-modal-header .btn-close {
+  flex-shrink: 0;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* Body */
+
+.service-modal-body {
+  padding: 2rem;
+}
+
+.service-modal-body h3 {
+  margin-bottom: 0.8rem;
+  color: var(--navy);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.service-modal-body p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.75;
+}
+
+/* Keep the close button at the far right */
+
+.service-modal .service-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.service-modal .service-modal-heading {
+  flex: 1;
+  min-width: 0;
+}
+
+.service-modal .service-modal-header .btn-close {
+  flex: 0 0 auto;
+  margin: 0 0 0 auto;
+  padding: 0.5rem;
+  opacity: 0.85;
+}
+
+.service-modal .service-modal-header .btn-close:hover {
+  opacity: 1;
+}
+
+/* Service modal: image and introduction */
+
+.service-modal-intro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.service-modal-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.65rem;
+  background: var(--tint);
+}
+
+.service-modal-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-modal-intro-layout .service-modal-intro {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .service-modal-intro-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .service-modal-image {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Introduction */
+
+.service-modal-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid #e1eaf3;
+}
+
+.service-modal-icon {
+  display: flex;
+  flex: 0 0 64px;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border: 5px solid #d7e9fa;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+}
+
+.service-modal-icon i {
+  font-size: 1.5rem;
+}
+
+/* Included work */
+
+.service-modal-includes {
+  padding: 1.75rem 0;
+}
+
+.service-modal-includes h3 {
+  margin-bottom: 1.25rem;
+}
+
+.service-modal-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.service-modal-list-item i {
+  flex-shrink: 0;
+  color: var(--blue-dark);
+  font-size: 1.05rem;
+}
+
+/* Approach */
+
+.service-modal-approach {
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--orange);
+  border-radius: 0.35rem;
+  background: var(--tint);
+}
+
+.service-modal-label {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--blue-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* Quote CTA */
+
+.service-modal-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+  padding: 1.5rem;
+  border: 1px solid #d7e9fa;
+  border-radius: 0.65rem;
+  background: #f5faff;
+}
+
+.service-modal-cta h3 {
+  margin-bottom: 0.4rem;
+}
+
+.service-modal-cta p {
+  font-size: 0.85rem;
+}
+
+.service-modal-quote {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--orange);
+  color: var(--navy);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.service-modal-quote:hover {
+  background: var(--orange-dark);
+  color: var(--navy);
+}
+
+/* Footer */
+
+.service-modal-footer {
+  padding: 1rem 2rem;
+  border-top: 1px solid #e1eaf3;
+  background: #fff;
+}
+
+/* Responsive */
+
+@media (max-width: 767.98px) {
+  .service-modal-header {
+    padding: 1.5rem;
+  }
+
+  .service-modal-body {
+    padding: 1.5rem;
+  }
+
+  .service-modal-intro {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .service-modal-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .service-modal-quote {
+    width: 100%;
+  }
+
+  .service-modal-footer {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .service-modal-body {
+    padding: 1.25rem;
+  }
+
+  .service-modal-approach,
+  .service-modal-cta {
+    padding: 1rem;
+  }
+}
+
+</style>
+
+
+<script>
+  function initServiceQuoteNavigation() {
+    document
+      .querySelectorAll<HTMLAnchorElement>('.service-modal-quote')
+      .forEach((link) => {
+        if (link.dataset.initialized === 'true') return;
+        link.dataset.initialized = 'true';
+
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          const modal = link.closest<HTMLElement>('.service-modal');
+          const contact = document.getElementById('contact');
+
+          if (!modal || !contact) return;
+
+          // Wait for Bootstrap to finish closing the modal.
+          modal.addEventListener(
+            'hidden.bs.modal',
+            () => {
+              history.replaceState(null, '', '#contact');
+
+              contact.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            },
+            { once: true }
+          );
+
+          // Trigger the existing Bootstrap close button.
+          const closeButton =
+            modal.querySelector<HTMLButtonElement>(
+              '.service-modal-header [data-bs-dismiss="modal"]'
+            );
+
+          closeButton?.click();
+        });
+      });
+  }
+
+  document.addEventListener('astro:page-load', initServiceQuoteNavigation);
+  initServiceQuoteNavigation();
+</script>

@@ -1,0 +1,64 @@
+---
+import { site } from '../data/site';
+const links = [
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
+  { href: '#services', label: 'Services' },
+  { href: '#gallery', label: 'Gallery' },
+  { href: '#why-me', label: 'Why me' },
+  { href: '#feedbacks', label: 'Feedback' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+<div class="topbar d-none d-md-block">
+  <div class="container d-flex justify-content-between py-2">
+    <span><i class="bi bi-clock me-2"></i>{site.hours}</span>
+    <span>
+      <a href={`tel:${site.phone.replace(/\s/g, '')}`}><i class="bi bi-telephone me-2"></i>{site.phone}</a>
+      <a class="ms-4" href={`mailto:${site.email}`}><i class="bi bi-envelope me-2"></i>{site.email}</a>
+    </span>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg site-nav sticky-top">
+  <div class="container">
+    <a class="navbar-brand brand" href="#home">
+      <span class="brand-mark"><i class="bi bi-house-door-fill"></i></span>
+      <span>{site.name}<br/><span class="brand-title">{site.role}</span></span>
+    </a>  
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideNav" aria-controls="sideNav" aria-label="Open menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Sidebar below lg, normal inline nav from lg up -->
+    <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="sideNav" aria-labelledby="sideNavLabel">
+      <div class="offcanvas-header">
+        <span class="offcanvas-title brand" id="sideNavLabel">
+          <span class="brand-mark"><i class="bi bi-house-door-fill"></i></span>{site.name}
+        </span>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sideNav" aria-label="Close menu"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1 w-100 justify-content-lg-end">
+          {links.map((l) => (
+            <li class="nav-item"><a class="nav-link" href={l.href}>{l.label}</a></li>
+          ))}
+          <li class="nav-item ms-lg-3 mt-3 mt-lg-0"><a class="btn btn-accent w-100" href="#contact">Free quote</a></li>
+        </ul>
+        <div class="side-contact d-lg-none mt-4">
+          <a href={`tel:${site.phone.replace(/\s/g, '')}`}><i class="bi bi-telephone me-2"></i>{site.phone}</a>
+          <a href={`mailto:${site.email}`}><i class="bi bi-envelope me-2"></i>{site.email}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  import { Offcanvas } from 'bootstrap';
+  // Close the sidebar when a link inside it is tapped
+  const panel = document.getElementById('sideNav');
+  panel?.querySelectorAll('a[href^="#"]').forEach((a) =>
+    a.addEventListener('click', () => Offcanvas.getInstance(panel)?.hide())
+  );
+</script>
