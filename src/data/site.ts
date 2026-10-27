@@ -221,17 +221,17 @@ export const reasons = [
 export const feedback = [
   {
     name: 'University Management',
-    job: 'Professional Feedback',
-    text: "Thank you. You're amazing."
+    job: 'Management Feedback',
+    text: "Thank you. You've done an excellent job."
   },
   {
     name: 'Site Supervisor',
-    job: 'Professional Feedback',
-    text: "There's always good things happening when you are on site."
+    job: 'Site Feedback',
+    text: "There's always good work happening when you're on site."
   },
   {
-    name: 'Mum',
-    job: 'Personal Feedback',
-    text: "You're the best!"
+    name: 'Private Client',
+    job: 'Client Feedback',
+    text: "Really pleased with the work. Thank you!"
   }
 ];
