@@ -1,11 +1,12 @@
 export const site = {
-  name: 'Leroy Russell',
+  name: 'David williams',
   tagline: 'Painting & decorating contractor',
-  phone: '07737 672 064 ',
-  email: 'leroy_rus@hotmail.com',
+  phone: '1234 567890 ',
+  email: 'email',
   area: 'Central London and surrounding areas',
   hours: 'Mon–Fri 8am–6pm, Sat 9am–1pm',
   role: 'Painter & decorator'
+
 };
 
 export const services = [
@@ -13,6 +14,7 @@ export const services = [
   { icon: 'bi-building', title: 'Exterior painting', text: 'Masonry, render, fascias and windows, prepared and sealed to cope with the weather.' },
   { icon: 'bi-shop', title: 'Commercial work', text: 'Offices, shops and communal areas, scheduled around your opening hours.' },
   { icon: 'bi-brush', title: 'Prep and repairs', text: 'Filling, sanding, stain blocking and lining so the finish lasts.' },
+
 ];
 
 export interface Project {
@@ -28,13 +30,14 @@ export interface Project {
     after: string;
     enabled: boolean;
   };
+
   details?: {
     overview: string;
     preparation?: string[];
     finish?: string;
   };
-}
 
+}
 
 export const projects = [
   {
@@ -45,11 +48,9 @@ export const projects = [
     type: 'slider',
     before: 'images/portfolio/door-before.webp',
     after: 'images/portfolio/door-after.webp',
-
     details: {
       overview:
-        'The wooden front door had become weathered, with deterioration to its existing finish. The surface was carefully sanded to remove the old coating, then prepared and primed in white before applying a grey paint finish. A protective lacquer was applied to complete the restoration, refreshing the door's appearance while preserving its original character and decorative features.',
-
+        'The wooden front door had become weathered, with deterioration to its existing finish. The surface was carefully sanded to remove the old coating, then prepared and primed in white before applying a grey paint finish. A protective lacquer was applied to complete the restoration, refreshing the door\'s appearance while preserving its original character and decorative features.',
       preparation: [
         'Assessment of the wooden door and deterioration of the existing finish',
         'Thorough sanding to remove the old lacquer and prepare the wood surface',
@@ -57,10 +58,10 @@ export const projects = [
         'Careful application of grey paint around panels, glazing and door furniture',
         'Application of a protective lacquer to seal and preserve the finished surface',
       ],
-
-     finish:
+    finish:
         'A smooth, refreshed grey finish, completed with a protective lacquer to enhance durability while preserving the wooden door’s original character and decorative details.',
       },
+    },
   {
     title: 'Interior Wall Restoration',
     place: 'Surface preparation',
@@ -69,17 +70,14 @@ export const projects = [
     type: 'static',
     before: 'images/portfolio/bedroom1-before.webp',
     after: 'images/portfolio/bedroom1-after.webp',
-
     videos: {
       before: 'videos/portfolio/walkthrough-before.mp4',
       after: 'videos/portfolio/walkthrough-after.mp4',
       enabled: false,
     },
-
     details: {
       overview:
-        'The interior walls had suffered water damage, resulting in deteriorated plaster and uneven surfaces. The project focused on repairing the affected areas, restoring the wall surfaces, and achieving a smooth, consistent finish that returned the room to a clean, well-maintained condition..',
-
+        'The interior walls had suffered water damage, resulting in deteriorated plaster and uneven surfaces. The project focused on repairing the affected areas, restoring the wall surfaces, and achieving a smooth, consistent finish that returned the room to a clean, well-maintained condition.',
       preparation: [
         'Assessment of water-damaged plaster and surrounding wall surfaces',
         'Removal of loose and deteriorated plaster from affected areas',
@@ -87,10 +85,10 @@ export const projects = [
         'Sanding and smoothing repaired areas ready for decorating',
         'Application of primer where required, followed by repainting for a consistent finish',
       ],
-      
       finish:
         'Water-damaged walls restored to a smooth, uniform finish, with repaired areas blending seamlessly into the surrounding surfaces and improving the overall appearance of the room.',
       },
+    },
   {
     title: 'Ceiling Restoration',
     place: 'Ceiling decorating',
@@ -99,11 +97,9 @@ export const projects = [
     type: 'static',
     before: 'images/portfolio/ceiling-before.webp',
     after: 'images/portfolio/ceiling-after.webp',
-
     details: {
       overview:
         'The ceiling had developed visible staining, mould and damp damage, particularly around the corner above the window, caused by defective guttering. The affected areas were thoroughly cleaned and treated with Watertite to seal the surface and prevent stains from bleeding through. The ceiling was then repainted to restore a clean, bright and consistent finish.',
-
      preparation: [
         'Assessment of mould, damp damage and staining caused by defective guttering',
         'Thorough cleaning of affected ceiling areas to remove mould and surface contamination',
@@ -111,10 +107,10 @@ export const projects = [
         'Application of Watertite to seal the affected areas and prevent stain bleed-through',
         'Repainting of the ceiling to achieve a clean, consistent finish',
       ],
-      
       finish:
         'A restored ceiling with mould and damp staining treated and concealed, finished with a fresh, uniform coat of paint to brighten the room and improve its overall appearance.',
        },
+    },
   {
     title: 'Exterior Masonry Restoration',
     place: 'Exterior painting',
@@ -123,11 +119,9 @@ export const projects = [
     type: 'static',
     before: 'images/portfolio/external-before.webp',
     after: 'images/portfolio/external-after.webp',
-
     details: {
      overview:
       'The exterior masonry had become weathered and discoloured, while the decorative metal railings showed signs of rust and deterioration. The work involved restoring both surfaces through careful preparation, repairs and repainting to improve their appearance and provide lasting protection.',
-    
     preparation: [
       'Assessment of weathered masonry and rust-affected metal railings',
       'Cleaning of masonry surfaces to remove dirt and surface contamination',
@@ -137,10 +131,10 @@ export const projects = [
       'Priming the prepared metalwork before applying a fresh protective paint finish',
       'Repainting the masonry in white to achieve a clean, consistent appearance',
     ],
-    
     finish:
       'Restored white masonry with a smooth, uniform finish, complemented by freshly painted black metal railings. The completed work refreshed the exterior appearance while helping protect both surfaces against further weathering.',
      },
+    },
   {
     title: 'Interior Wall Repairs',
     place: 'Interior decorating',
@@ -149,11 +143,9 @@ export const projects = [
     type: 'slider',
     before: 'images/portfolio/bedroom2-before.webp',
     after: 'images/portfolio/bedroom2-after.webp',
-
     details: {
      overview:
       'The interior walls had areas of bubbling and flaking paint, particularly around the washbasin and wall-mounted fixtures. The windowsill also required attention due to deterioration of its existing finish. The project involved repairing the affected surfaces and repainting the entire room to restore a clean, consistent appearance.',
-    
     preparation: [
       'Assessment of bubbling and flaking paint on walls and windowsill',
       'Scraping and removal of loose, deteriorating paint',
@@ -162,10 +154,10 @@ export const projects = [
       'Careful preparation and protection of existing fixtures and fittings',
       'Repainting the entire room, including the windowsill, to achieve a uniform finish',
     ],
-    
     finish:
       'A fully refreshed interior with repaired wall surfaces, a restored windowsill and a clean, consistent paint finish throughout the room. The completed work improved the overall appearance while maintaining neat detailing around existing fixtures and fittings.',
       },
+    },
   {
     title: 'Room Painting & Preparation',
     place: 'Work in progress',
@@ -173,11 +165,9 @@ export const projects = [
       'Protecting flooring and surrounding surfaces during decorating.',
     type: 'single',
     image: 'images/portfolio/room-process1.webp',
-
     details: {
       overview:
         'The property required a complete interior repaint, including walls, skirting boards and surrounding woodwork. The work involved preparing and decorating the surfaces throughout the house to achieve a fresh, consistent appearance. The photograph captures one of the rooms nearing completion, with approximately 90% of the decorating work finished.',
-
     preparation: [
       'Protection of flooring and surrounding areas with dust sheets',
       'Assessment and preparation of walls, skirting boards and woodwork',
@@ -186,10 +176,10 @@ export const projects = [
       'Careful painting of walls and detailed finishing around edges and fixtures',
       'Preparation and repainting of skirting boards and interior woodwork',
     ],
-    
     finish:
       'A nearly completed room with freshly painted walls, skirting boards and woodwork, showing the progress of the wider house repainting project. The work brings a cleaner, brighter and more consistent appearance to the interior.',
    },
+  },
 ] satisfies Project[];
 
 export const serviceOptions = ['Interior painting', 'Exterior painting', 'Commercial work', 'Prep and repairs', 'Something else'];
