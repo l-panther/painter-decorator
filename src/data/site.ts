@@ -1,8 +1,8 @@
 export const site = {
-  name: 'David williams',
+  name: 'Leroy Russell',
   tagline: 'Painting & decorating contractor',
-  phone: '1234 567890 ',
-  email: 'email',
+  phone: '07737 672064 ',
+  email: 'leroy_rus@hotmail.com',
   area: 'Central London and surrounding areas',
   hours: 'Mon–Fri 8am–6pm, Sat 9am–1pm',
   role: 'Painter & decorator'
