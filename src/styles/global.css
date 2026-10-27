@@ -148,7 +148,7 @@ textarea:focus-visible {
   font-weight: 700;
   padding-inline: 1.5rem;
   font-size: 0.95rem;
-  text-transform: uppercse;
+  text-transform: uppercase;
 }
 
 .btn-brand {
