@@ -159,7 +159,7 @@ export const projects = [
       },
     },
   {
-    title: 'Room Painting & Preparation',
+    title: 'Room Preparation & Painting',
     place: 'Work in progress',
     description:
       'Protecting flooring and surrounding surfaces during decorating.',
