@@ -48,15 +48,22 @@ const base = import.meta.env.BASE_URL;
   ======================================== */
 
   .hero {
-    background: #fff;
-    padding-block: 3rem 0;
+    background: var(--navy);
+    background:
+    radial-gradient(
+      50% 45% at 32% 35%,
+      rgba(74, 128, 181, 0.762) 0%,
+      rgba(49, 87, 144, 0.371) 65%
+    ),
+    var(--navy);
+    padding: 4rem 0 4.5rem;
     overflow: hidden;
+    color: #fff;
   }
 
   .hero h1 {
     margin-bottom: 1rem;
-    color: var(--navy);
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-size: clamp(2.2rem, 5vw, 3.3rem);
     font-weight: 800;
     line-height: 1.08;
   }
@@ -64,7 +71,6 @@ const base = import.meta.env.BASE_URL;
   .hero .lead {
     max-width: 34rem;
     margin: 1.75rem 0;
-    color: var(--muted);
     font-size: 1.125rem;
     line-height: 1.65;
   }
@@ -82,8 +88,9 @@ const base = import.meta.env.BASE_URL;
 
   .hero-img {
     display: block;
-    width: 100%;
+    width: 60%;
     max-width: 100%;
+    margin: auto;
     height: auto;
   }
 
@@ -93,18 +100,19 @@ const base = import.meta.env.BASE_URL;
 
   @media (min-width: 992px) {
     .hero {
-      padding-block: 2rem 0;
-    }
-
-    .hero-text {
-      padding-bottom: 3rem;
+      padding: 4rem 0;
+      overflow: visible;
     }
 
     .hero-img {
-      width: 100%;
-      max-width: 100%;
-      margin-left: 0;
+      width: 80%;
       transform: none;
+    }
+
+    .hero .col-lg-6:last-child { padding: 0; }
+
+    .hero-text {
+      padding: 0 0 3rem 2rem;
     }
   }
 
