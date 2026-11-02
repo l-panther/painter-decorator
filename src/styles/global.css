@@ -51,6 +51,10 @@ h3,
   color: var(--muted) !important;
 }
 
+.text-blue {
+  color: var(--blue);
+}
+
 :focus-visible {
   outline: 3px solid var(--orange);
   outline-offset: 2px;
