@@ -187,6 +187,12 @@ textarea:focus-visible {
   border: 2px solid var(--blue);
 }
 
+.hero .btn-outline-brand {
+  background: #fff;
+  color: var(--blue-dark);
+  border: 2px solid var(navy);
+}
+
 .btn-outline-brand:hover,
 .btn-outline-brand:focus {
   background: var(--blue);
