@@ -114,9 +114,22 @@ const links = [
     padding-left: 0.75rem;
   }
 
-  .navbar-toggle span { color: var(--tint) }
+  /* Bootstrap mobile navbar toggle */
+  .site-nav .navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: none;
+  }
+  
+  .site-nav .navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+  }
+  
+  .site-nav .navbar-toggler:focus {
+    box-shadow: 0 0 0 2px rgba(60, 147, 219, 0.4);
+  }
+
   #sideNav { width: min(320px, 85vw); }
-  #sideNav .nav-link { font-size: 1.1rem; padding: 0.8rem 0; border-bottom: 1px solid #e3e9f3; }
+  #sideNav .nav-link { font-size: 1.1rem; padding: 0.8rem 0; border-bottom: 1px solid #e3e9f3; color: var(--blue-dark) }
   .side-contact { display: flex; flex-direction: column; gap: 0.6rem; }
   .side-contact a { color: var(--ink); text-decoration: none; }
 }
