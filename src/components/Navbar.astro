@@ -9,6 +9,8 @@ const links = [
   { href: '#feedbacks', label: 'Feedback' },
   { href: '#contact', label: 'Contact' },
 ];
+
+const name = site.name.split(" ")
 ---
 
 <div class="topbar d-none d-lg-block">
@@ -25,7 +27,7 @@ const links = [
   <div class="container">
     <a class="navbar-brand brand" href="#home">
       <span class="brand-mark"><i class="bi bi-house-door-fill"></i></span>
-      <span>{site.name}<br/><span class="brand-title">{site.role}</span></span>
+      <span class="">{name[0]} <span class="brand-lastname">{name[1]}</span><br/><span class="brand-role">{site.role}</span></span>
     </a>  
     <button
       class="navbar-toggler"
@@ -74,7 +76,9 @@ const links = [
   .brand-mark { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border-radius: 0.6rem; background: var(--blue); color: #fff; flex: none; }
   .site-nav .nav-link { color: #d6e0f2; font-weight: 500; padding-inline: 0.6rem; font-size: 0.97rem; }
   .site-nav .nav-link:hover { color: var(--blue-dark); }
-  .brand-title { font-family: 'DM Sans'; color: #c6c6c6; font-style: italic; }
+  .brand-lastname { color: var(--blue-light) }
+  .brand-role { font-family: 'DM Sans'; color: #c6c6c6; font-style: italic; font-size: 0.9em;}
+
 
   /* Active navigation link */
 .site-nav .nav-link.active {
@@ -132,7 +136,7 @@ const links = [
   #sideNav .nav-link { font-size: 1.1rem; padding: 0.8rem 0; border-bottom: 1px solid #e3e9f3; color: var(--blue-dark) }
   .side-contact { display: flex; flex-direction: column; gap: 0.6rem; }
   .side-contact a { color: var(--ink); text-decoration: none; }
-  .sideNavLabel { color: var(--ink); }
+  #sideNavLabel { color: var(--ink); }
 }
 
 </style>
