@@ -25,7 +25,7 @@ const facts = [
   <div class="container">
     <div class="row g-5 align-items-center">
 
-      <div class="col-lg-6">
+      <div class="col-lg-6 d-none d-lg-block">
         <img
           class="about-img"
           src={asset('images/about.png')}
@@ -92,6 +92,16 @@ const facts = [
               </ul>
             </div>
           </div>
+
+          <div class="col-lg-6 d-none d-md-block">
+            <img
+              class="about-img"
+              src={asset('images/about.png')}
+              alt="A painter rolling blue paint onto a wall, with a stepladder, paint tins and a brush on a dust sheet"
+              fetchpriority="high"
+            />
+          </div>
+
         </div>
       </div>
 
