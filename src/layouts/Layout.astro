@@ -4,20 +4,18 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/global.css';
 import { site } from '../data/site';
 import { asset } from '../utils/paths';
-
-const { title = `${site.name} | ${site.tagline}`, description = 'Interior and exterior painting for homes and businesses.' } = Astro.props;
 ---
 <!doctype html>
 <html lang="en-GB">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
+    <title>Professional Painter & Decorator in London | Leroy Painting</title>
+    <meta name="description" content="BlueLine Painting provides professional interior and exterior painting, decorating, woodwork finishes and surface repairs with care and attention to detail." />
     <link rel="icon" type="image" href={asset('images/logo/logo.png')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
-    <title>{title}</title>
   </head>
   <body>
     <slot />
