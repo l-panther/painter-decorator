@@ -266,7 +266,7 @@ textarea:focus-visible {
   }
 
   .section {
-    padding-block: 3rem;
+    padding-block: 4rem;
   }
 
   .section-head {
@@ -274,7 +274,7 @@ textarea:focus-visible {
   }
 
   .section h2 {
-    font-size: clamp(1.5rem, 6vw, 1.9rem);
+    font-size: clamp(1.5rem, 6vw, 1.6rem);
   }
 
   .section-head p {
