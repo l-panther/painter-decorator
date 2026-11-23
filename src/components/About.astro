@@ -1,252 +1,255 @@
 ---
-import { site } from '../data/site';
 import { asset } from '../utils/paths';
 
-const base = import.meta.env.BASE_URL;
+const facts = [
+  {
+    icon: 'bi-award',
+    text: 'Around 5 years of painting and decorating experience'
+  },
+  {
+    icon: 'bi-patch-check',
+    text: 'Level 2 Diploma in Painting & Decorating'
+  },
+  {
+    icon: 'bi-buildings',
+    text: 'Experience in residential, commercial and educational settings'
+  },
+  {
+    icon: 'bi-brush',
+    text: 'Careful preparation, repairs and quality finishes'
+  },
+];
 ---
 
-
-<header class="hero" id="home">
+<section id="about" class="section">
   <div class="container">
-    <div class="hero-content">
+    <div class="row g-5 align-items-center">
 
-      <span class="hero-eyebrow">
-        Professional Painting & Decorating
-      </span>
+      <div class="col-lg-6 justify-content-center d-none d-lg-flex">
+        <img
+          class="about-img"
+          src={asset('images/about.png')}
+          alt="A painter rolling blue paint onto a wall, with a stepladder, paint tins and a brush on a dust sheet"
+          fetchpriority="high"
+        />
+      </div>
 
-      <h1>Transforming Spaces<br />With Care.</h1>
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-12">
+                    
+            <h2>About <span class="text-blue">Me</span></h2>
 
-      <div class="hero-stroke" aria-hidden="true"></div>
+            <p class="lead-sm">
+              I'm a painter and decorator with
+              <strong>around five years of hands-on experience</strong>,
+              delivering quality finishes through careful preparation,
+              skilled workmanship and attention to detail.
+            </p>
 
-      <img class="hero-stroke" src={asset('images/paint-stroke.png')} alt="Decorative orange paint stroke" />
-      
-      <p class="lead">
-        Professional interior and exterior painting and decorating across Central London and surrounding areas. From careful preparation to the final coat, I deliver quality workmanship, attention to detail and a clean, professional finish.
-      </p>
+            <p class="text-muted">
+              I've worked across
+              <strong>residential, commercial and educational settings</strong>,
+              undertaking everything from surface repairs and preparation
+              to interior and exterior painting. I approach every project
+              with the same commitment to quality, regardless of its size.
+            </p>
 
-      <div class="hero-actions">
-        <a href="#contact" class="hero-btn primary">
-          Get a Free Quote
-        </a>
+            <p class="text-muted">
+              For me, great decorating is about more than the final coat.
+              It's about taking the time to get the details right,
+              <strong>working neatly and treating every property with care
+              and respect.</strong>
+            </p>
 
-        <a href="#portfolio" class="hero-btn secondary">
-          See My Work
-        </a>
+            <p class="text-muted">
+              Alongside painting and decorating, I have a keen interest
+              in web development and digital design. It's another
+              creative outlet where I can bring ideas to life through
+              thoughtful design and attention to detail.
+            </p>
+
+            <a
+              href="https://l-panther.github.io/portfolio/"
+              class="creative-portfolio-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="bi bi-code-slash" aria-hidden="true"></i>
+              <span>View My Web Development Portfolio</span>
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            </div>
+
+          <div class="col-lg-12 pt-4">
+            <div class="about-card">
+              <h3 class="h5 mb-4">At a Glance</h3>
+
+              <ul class="list-unstyled mb-0">
+                {facts.map((f) => (
+                  <li class="d-flex gap-3 align-items-center mb-1">
+                    <i class={`bi ${f.icon}`} aria-hidden="true"></i>
+                    <span>{f.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+        </div>
       </div>
 
     </div>
   </div>
-</header>
+</section>
 
 
 <style>
-/* ==========================
-   HERO
-========================== */
+  /* ========================================
+     ABOUT CARD
+  ======================================== */
 
-.hero {
-  position: relative;
-  isolation: isolate;
-
-  display: flex;
-  align-items: center;
-
-  min-height: 600px;
-  padding: 80px 0;
-
-  background-color: #084780;
-
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(12, 28, 53, 1) 0%,
-      rgba(12, 28, 53, .95) 30%,
-      rgba(12, 28, 53, .45) 52%,
-      transparent 75%
-    ),
-    url("/images/hero/hero.webp");
-
-  background-size: cover;
-  background-position: center;
-
-  background-repeat: no-repeat;
-  color: #fff;
-}
-
-.hero .container {
-  position: relative;
-  z-index: 1;
-  width: min(1380px, calc(100% - 40px));
-  margin-inline: auto;
-}
-
-.hero-content {
-  max-width: 760px;
-}
-
-.hero-eyebrow {
-  display: block;
-  margin-bottom: 18px;
-  color: #b9dfff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.hero h1 {
-  margin: 0 0 10px;
-  font-size: clamp(40px, 4.5vw, 64px);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
-}
-
-/* .hero-stroke {
-  width: 190px;
-  height: 5px;
-  margin: 26px 0 32px;
-  border-radius: 50%;
-  background: #ff914d;
-  transform: rotate(-2deg);
-}*/
-
-.hero-stroke {
-  display: block;
-  width: 40%;
-  max-width: 85%;
-  height: auto;
-  margin: 0;
-  transform: rotate(-2deg);
-}
-
-.hero-content p {
-  max-width: 610px;
-  margin: 25px 0 0 0;
-  color: #e4edf7;
-  font-size: 16px;
-  line-height: 1.85;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 30px;
-}
-
-.hero-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 12px 26px;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: background .25s, color .25s;
-}
-
-.hero-btn.primary {
-  background: #ff914d;
-  color: #12233f;
-}
-
-.hero-btn.primary:hover {
-  background: #f27a2e;
-}
-
-.hero-btn.secondary {
-  border-color: rgba(255, 255, 255, 0.85);
-  background: transparent;
-  color: #fff;
-}
-
-.hero-btn.secondary:hover {
-  background: #fff;
-  color: #12233f;
-}
-
-/* LARGE DESKTOP */
-@media (min-width: 1440px) {
-  .hero {
-    min-height: 750px;
-    background-position: center center;
-  }
-}
-
-/* SMALL DESKTOP */
-@media (max-width: 1199px) {
-  .hero {
-    min-height: 650px;
-    background-position: 65% center;
+  .about-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .hero-content {
-    max-width: 480px;
-  }
-}
-
-/* TABLET */
-@media (max-width: 900px) {
-  .hero {
-    min-height: 600px;
-    align-items: flex-start;
-    padding: 90px 0 80px;
-
-    background-position: 72% center;
+  .about-img {
+    display: block;
+    width: 80%;
+    height: auto;
   }
 
-  .hero-content {
-    max-width: 480px;
+  .about-card {
+    background: linear-gradient(30deg, #1e365d, #1e365d, var(--navy));
+    color: var(--tint);
+    border-radius: 1rem;
+    padding: 2.5rem;
   }
 
-  .hero h1 {
-    font-size: clamp(36px, 5vw, 48px);
-  }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .hero {
-    min-height: 420px;
-    padding: 85px 0 90px;
-
-    background-position: 76% bottom;
+  .about-card h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
   }
 
-  .hero .container {
-    width: calc(100% - 36px);
+  .about-card li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--tint);
   }
 
-  .hero-content {
+  .about-card .bi {
+    color: var(--orange);
+    font-size: 1.5rem;
+    flex: none;
+  }
+
+  /* ========================================
+     PORTFOLIO LINK
+  ======================================== */
+
+  .creative-portfolio-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
     max-width: 100%;
+    margin-top: 0.75rem;
+    color: var(--blue-dark);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
 
-  .hero h1 {
-    font-size: clamp(34px, 9vw, 43px);
+  .creative-portfolio-link span {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
-  .hero-content p {
-    font-size: 14px;
-    line-height: 1.75;
+  .creative-portfolio-link:hover {
+    color: var(--navy);
   }
 
-  .hero-stroke {
-    width: 125px;
-    margin: 20px 0 25px;
+  .creative-portfolio-link .bi {
+    flex-shrink: 0;
   }
 
-  .hero-actions {
-    gap: 10px;
+  .creative-portfolio-link .bi-arrow-up-right {
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
   }
 
-  .hero-btn {
-    padding: 11px 18px;
-    font-size: 11px;
+  .creative-portfolio-link:hover .bi-arrow-up-right {
+    transform: translate(2px, -2px);
   }
-}
+
+  /* ========================================
+     TABLET
+  ======================================== */
+
+  @media (max-width: 992px) {
+    .about-sm-img {
+      width: 80%;
+      margin: auto;
+    }
+  }
+
+  /* ========================================
+     MOBILE
+  ======================================== */
+
+  @media (max-width: 767.98px) {
+    #about .row {
+      --bs-gutter-y: 2rem;
+    }
+
+    .about-card {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .about-card h3 {
+      font-size: 1.05rem;
+    }
+
+    .about-card li {
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .about-card .bi {
+      font-size: 1.2rem;
+    }
+
+    .creative-portfolio-link {
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  /* ========================================
+     SMALL PHONE
+  ======================================== */
+
+  @media (max-width: 399.98px) {
+    .about-sm-img {
+      width: 90%;
+      margin: auto;
+    }
+  }
+
+  /* ========================================
+     ACCESSIBILITY
+  ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .creative-portfolio-link,
+    .creative-portfolio-link .bi-arrow-up-right {
+      transition: none;
+    }
+  }
 </style>
