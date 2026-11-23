@@ -25,7 +25,7 @@ const facts = [
   <div class="container">
     <div class="row g-5 align-items-center">
 
-      <div class="col-lg-6 d-none d-lg-block">
+      <div class="col-lg-6 justify-content-center d-none d-lg-flex">
         <img
           class="about-img"
           src={asset('images/about.png')}
@@ -37,69 +37,63 @@ const facts = [
       <div class="col-lg-6">
         <div class="row">
           <div class="col-lg-12">
-          <h2>About <span class="text-blue">Me</span></h2>
-    
-          <p class="lead-sm">
-            I'm a painter and decorator with around five years
-            of hands-on experience, taking pride in careful
-            preparation, attention to detail and achieving
-            clean, professional finishes.
-          </p>
+                    
+            <h2>About <span class="text-blue">Me</span></h2>
 
-          <p class="text-muted">
-            My experience includes residential, commercial and
-            educational environments, working on everything
-            from wall and ceiling repairs to interior and
-            exterior painting.
-          </p>
+            <p class="lead-sm">
+              I'm a painter and decorator with
+              <strong>around five years of hands-on experience</strong>,
+              delivering quality finishes through careful preparation,
+              skilled workmanship and attention to detail.
+            </p>
 
-          <p class="text-muted">
-            I believe a good finish starts long before the
-            final coat. That's why I focus on preparing surfaces
-            properly, working carefully and treating each
-            space with respect.
-          </p>
+            <p class="text-muted">
+              I've worked across
+              <strong>residential, commercial and educational settings</strong>,
+              undertaking everything from surface repairs and preparation
+              to interior and exterior painting. I approach every project
+              with the same commitment to quality, regardless of its size.
+            </p>
 
-          <p class="text-muted">
-            Beyond painting and decorating, I also have a passion
-            for digital design and web development. Both allow me
-            to combine creativity, precision and an eye for detail.
-          </p>
+            <p class="text-muted">
+              For me, great decorating is about more than the final coat.
+              It's about taking the time to get the details right,
+              <strong>working neatly and treating every property with care
+              and respect.</strong>
+            </p>
 
-          <a
-            href="https://l-panther.github.io/portfolio/"
-            class="creative-portfolio-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i class="bi bi-code-slash" aria-hidden="true"></i>
-            <span>View My Web Development Portfolio</span>
-            <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-          </a>
-          </div>
+            <p class="text-muted">
+              Alongside painting and decorating, I have a keen interest
+              in web development and digital design. It's another
+              creative outlet where I can bring ideas to life through
+              thoughtful design and attention to detail.
+            </p>
 
-          <div class="col-lg-12 pt-lg-5 pt-md-5">
+            <a
+              href="https://l-panther.github.io/portfolio/"
+              class="creative-portfolio-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="bi bi-code-slash" aria-hidden="true"></i>
+              <span>View My Web Development Portfolio</span>
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+            </div>
+
+          <div class="col-lg-12 pt-4">
             <div class="about-card">
               <h3 class="h5 mb-4">At a Glance</h3>
 
               <ul class="list-unstyled mb-0">
                 {facts.map((f) => (
-                  <li class="d-flex gap-3 align-items-center mb-3">
+                  <li class="d-flex gap-3 align-items-center mb-1">
                     <i class={`bi ${f.icon}`} aria-hidden="true"></i>
                     <span>{f.text}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
-
-          <div class="col-lg-6 d-lg-none pt-5 about-sm-img">
-            <img
-              class="about-img"
-              src={asset('images/about.png')}
-              alt="A painter rolling blue paint onto a wall, with a stepladder, paint tins and a brush on a dust sheet"
-              fetchpriority="high"
-            />
           </div>
 
         </div>
@@ -115,8 +109,16 @@ const facts = [
      ABOUT CARD
   ======================================== */
 
+  .about-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .about-img {
-    width: 100%;
+    display: block;
+    width: 80%;
+    height: auto;
   }
 
   .about-card {
@@ -135,7 +137,7 @@ const facts = [
   .about-card li {
     font-size: 0.95rem;
     line-height: 1.6;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--tint);
   }
 
